@@ -1,0 +1,27 @@
+.root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora {
+  position: absolute;
+  inset: -20% -10% 0 -10%;
+  background:
+    radial-gradient(60% 40% at 20% 0%, color-mix(in oklab, var(--accent-start) 40%, transparent) 0%, transparent 70%),
+    radial-gradient(50% 40% at 80% 0%, color-mix(in oklab, var(--accent-end) 40%, transparent) 0%, transparent 70%);
+  filter: blur(60px) saturate(120%);
+  opacity: 0.35;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px;
+  mask-image: radial-gradient(60% 40% at 50% 0%, black, transparent 70%);
+  opacity: 0.25;
+}
+
+

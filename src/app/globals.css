@@ -1,8 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #07090c;
+  --foreground: #e6e8ea;
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.12);
+  --accent-start: #5b86e5;
+  --accent-end: #36d1dc;
+  /* UT 2099 */
+  --ut-bg: #020617;
+  --ut-neon: #00ffff;
+  --ut-accent: #7c3aed;
+  --ut-secondary: #0ea5e9;
+  --ut-text: #e2e8f0;
+  --ut-text-dim: #94a3b8;
+  --ut-card: rgba(255,255,255,0.05);
+  --ut-border: rgba(0,255,255,0.25);
 }
 
 @theme inline {
@@ -12,15 +25,24 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass-bg: rgba(255,255,255,0.08) }
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(1200px 800px at 50% -10%, rgba(87,113,160,0.18), transparent 60%), var(--ut-bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px) saturate(120%);
+}
+
+/* Neon grid helper */
+.bg-grid {
+  background-image: linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px;
 }

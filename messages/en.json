@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Home",
+    "tools": "Tools",
+    "about": "About",
+    "contact": "Contact",
+    "searchPlaceholder": "Search tools",
+    "connectWallet": "Connect Wallet"
+  },
+  "hero": {
+    "title": "Universal Tools 2099",
+    "tagline": "Future-grade tools for the digital world.",
+    "launch": "Launch Tools",
+    "learn": "Learn More"
+  },
+  "categories": "Categories",
+  "featured": "Featured",
+  "promoted": "Promoted",
+  "upgrade": "Upgrade to Pro to unlock batch tools and higher limits",
+  "allTools": "All Tools",
+  "searchPlaceholder": "Search tools",
+  "connectWallet": "Connect Wallet"
+}
+
+

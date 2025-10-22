@@ -1,0 +1,14 @@
+.imageWrap {
+  position: relative;
+  max-width: min(92vw, 1200px);
+  max-height: 86vh;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+

@@ -1,0 +1,18 @@
+{
+  "nav": {"home": "Start", "tools": "Werkzeuge", "about": "Über", "contact": "Kontakt", "searchPlaceholder": "Werkzeuge suchen", "connectWallet": "Wallet verbinden"},
+  "hero": {
+    "title": "Universal Tools 2099",
+    "tagline": "Werkzeuge der Zukunft für die digitale Welt.",
+    "launch": "Werkzeuge starten",
+    "learn": "Mehr erfahren"
+  },
+  "categories": "Kategorien",
+  "featured": "Highlights",
+  "promoted": "Gesponsert",
+  "upgrade": "Upgrade auf Pro für Stapel-Tools und höhere Limits",
+  "allTools": "Alle Werkzeuge",
+  "searchPlaceholder": "Werkzeuge suchen",
+  "connectWallet": "Wallet verbinden"
+}
+
+
