@@ -1,0 +1,21 @@
+{
+  "nav": {"home": "Home", "tools": "Strumenti", "about": "Chi Siamo", "contact": "Contatto", "searchPlaceholder": "Cerca strumenti", "connectWallet": "Connetti Wallet"},
+  "hero": {
+    "title": "Strumenti Universali 2099",
+    "tagline": "Strumenti di livello futuro per il mondo digitale.",
+    "launch": "Lancia Strumenti",
+    "learn": "Scopri di Più"
+  },
+  "categories": "Categorie",
+  "featured": "In Evidenza",
+  "promoted": "Promosso",
+  "upgrade": "Aggiorna a Pro per sbloccare strumenti batch e limiti più alti",
+  "allTools": "Tutti gli Strumenti",
+  "searchPlaceholder": "Cerca strumenti",
+  "connectWallet": "Connetti Wallet",
+  "about": {
+    "title": "Chi Siamo",
+    "p1": "WebTools è una raccolta di utility veloci e attente alla privacy per l'uso quotidiano. Converti, formatta, visualizza in anteprima e ottimizza i file direttamente nel browser: niente upload, nessun accesso, tutto lato client.",
+    "p2": "Il progetto è costruito con Next.js, React e un tocco di UI in stile neon. Puntiamo su UX pulita, componenti accessibili e velocità."
+  }
+}

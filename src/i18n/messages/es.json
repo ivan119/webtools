@@ -1,0 +1,21 @@
+{
+  "nav": {"home": "Inicio", "tools": "Herramientas", "about": "Acerca de", "contact": "Contacto", "searchPlaceholder": "Buscar herramientas", "connectWallet": "Conectar Wallet"},
+  "hero": {
+    "title": "Herramientas Universales 2099",
+    "tagline": "Herramientas de grado futuro para el mundo digital.",
+    "launch": "Lanzar Herramientas",
+    "learn": "Saber Más"
+  },
+  "categories": "Categorías",
+  "featured": "Destacado",
+  "promoted": "Promocionado",
+  "upgrade": "Actualiza a Pro para desbloquear herramientas por lotes y límites más altos",
+  "allTools": "Todas las Herramientas",
+  "searchPlaceholder": "Buscar herramientas",
+  "connectWallet": "Conectar Wallet",
+  "about": {
+    "title": "Acerca de",
+    "p1": "WebTools es una colección de utilidades rápidas y privadas para el día a día. Convierte, formatea, previsualiza y optimiza archivos directamente en tu navegador: sin subidas, sin inicio de sesión, todo del lado del cliente.",
+    "p2": "Este proyecto está construido con Next.js, React y un toque de UI con estilo neón. Priorizamos una UX clara, componentes accesibles y velocidad."
+  }
+}

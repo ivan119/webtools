@@ -1,2 +1,5 @@
-export { default, revalidate } from "../../tools/page";
+export { default } from "../../tools/page";
+
+
+
 

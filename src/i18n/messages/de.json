@@ -12,7 +12,12 @@
   "upgrade": "Upgrade auf Pro für Stapel-Tools und höhere Limits",
   "allTools": "Alle Werkzeuge",
   "searchPlaceholder": "Werkzeuge suchen",
-  "connectWallet": "Wallet verbinden"
+  "connectWallet": "Wallet verbinden",
+  "about": {
+    "title": "Über",
+    "p1": "WebTools ist eine Sammlung schneller, datenschutzfreundlicher Utilities für den Alltag. Konvertieren, formatieren, previewen und optimieren Sie Dateien direkt im Browser – ohne Uploads, ohne Anmeldung, alles clientseitig.",
+    "p2": "Das Projekt basiert auf Next.js, React und einem Hauch Neon‑UI. Fokus auf klare UX, zugängliche Komponenten und Geschwindigkeit."
+  }
 }
 
 
