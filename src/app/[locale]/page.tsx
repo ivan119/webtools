@@ -10,7 +10,7 @@ import { CommandPalette } from "../../components/chrome/CommandPalette";
 
 export default async function Home() {
   return (
-    <div className="min-h-screen">
+    <div>
       <BackgroundFX />
       <CommandPalette />
       <MainHero />

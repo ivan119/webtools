@@ -46,12 +46,14 @@ export default async function RootLayout(props: RootLayoutProps) {
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased min-h-dvh flex flex-col`}
       >
         <NextIntlClientProvider messages={messages}>
           <NuqsAdapter>
             <Navbar />
-            {children}
+              <div className={'grow h-full'}>
+                  {children}
+              </div>
             <Footer />
           </NuqsAdapter>
         </NextIntlClientProvider>
