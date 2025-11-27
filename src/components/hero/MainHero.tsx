@@ -12,7 +12,7 @@ export function MainHero() {
       <motion.h1
         initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-        className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-500 to-blue-400 bg-clip-text text-transparent"
+        className="text-5xl md:text-7xl font-extrabold bg-linear-to-r from-cyan-400 via-purple-500 to-blue-400 bg-clip-text text-transparent"
       >
         {t("title")}
       </motion.h1>
