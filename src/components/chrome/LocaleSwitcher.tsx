@@ -34,7 +34,7 @@ export function LocaleSwitcher() {
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    function handleClickOutside(event: Event) {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
