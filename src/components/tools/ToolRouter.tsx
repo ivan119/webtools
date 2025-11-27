@@ -19,6 +19,7 @@ import JsonFormatter from "./text/JsonFormatter";
 import MetaTagPreview from "./seo/MetaTagPreview";
 import HashGenerator from "./other/HashGenerator";
 import QRCodeGenerator from "./QRCodeGenerator";
+import ImageMetadataViewer from "./ImageMetadataViewer";
 
 type ToolId =
   | "jpeg-to-png"
@@ -37,7 +38,8 @@ type ToolId =
   | "hash-generator"
   | "png-to-ico"
   | "json-formatter"
-  | "qr-code-generator";
+  | "qr-code-generator"
+  | "image-metadata-viewer";
 
 interface ToolRouterProps {
   toolId: ToolId | null;
@@ -61,6 +63,7 @@ const toolComponents: Record<ToolId, React.ComponentType> = {
   "png-to-ico": PngToIcoConverter,
   "json-formatter": JsonFormatter,
   "qr-code-generator": QRCodeGenerator,
+  "image-metadata-viewer": ImageMetadataViewer,
 };
 
 export default function ToolRouter({ toolId }: ToolRouterProps) {

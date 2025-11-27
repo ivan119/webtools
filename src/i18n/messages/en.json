@@ -46,6 +46,74 @@
     },
     "copySuccess": "QR code SVG copied to clipboard!",
     "copyFailed": "Failed to copy SVG"
+  },
+  "imageMetadataViewer": {
+    "title": "Image Metadata Viewer",
+    "description": "View EXIF data, camera settings, GPS coordinates, and other metadata from your images.",
+    "uploadLabel": "Upload Image",
+    "loading": "Reading image metadata...",
+    "preview": "Image Preview",
+    "metadata": "Metadata",
+    "clear": "Clear",
+    "noMetadata": "No metadata found in this image. The image may have been processed or stripped of EXIF data.",
+    "errors": {
+      "failedToRead": "Failed to read image metadata. Please try another image."
+    },
+    "sections": {
+      "basicInfo": "Basic Information",
+      "dimensions": "Image Dimensions",
+      "camera": "Camera Information",
+      "cameraSettings": "Camera Settings",
+      "location": "Location Information",
+      "dateTime": "Date & Time",
+      "software": "Software & Copyright",
+      "colorProfile": "Color Profile (ICC)",
+      "iptc": "IPTC Metadata",
+      "xmp": "XMP Metadata",
+      "other": "Other Metadata"
+    },
+    "fields": {
+      "fileName": "File Name",
+      "fileSize": "File Size",
+      "fileType": "File Type",
+      "lastModified": "Last Modified",
+      "width": "Width",
+      "height": "Height",
+      "orientation": "Orientation",
+      "make": "Make",
+      "model": "Model",
+      "lensMake": "Lens Make",
+      "lensModel": "Lens Model",
+      "iso": "ISO",
+      "exposureTime": "Exposure Time",
+      "aperture": "Aperture",
+      "focalLength": "Focal Length",
+      "flash": "Flash",
+      "whiteBalance": "White Balance",
+      "exposureMode": "Exposure Mode",
+      "meteringMode": "Metering Mode",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "altitude": "Altitude",
+      "gpsDate": "GPS Date",
+      "gpsSpeed": "GPS Speed",
+      "gpsDirection": "GPS Direction",
+      "mapLink": "View on Map",
+      "dateTimeOriginal": "Date/Time Original",
+      "dateTime": "Date/Time",
+      "createDate": "Create Date",
+      "modifyDate": "Modify Date",
+      "software": "Software",
+      "artist": "Artist",
+      "copyright": "Copyright"
+    },
+    "info": {
+      "title": "About Image Metadata",
+      "point1": "EXIF data is embedded in images by cameras and photo editing software",
+      "point2": "Not all images contain metadata - some may have been stripped for privacy",
+      "point3": "GPS coordinates reveal the location where a photo was taken",
+      "point4": "All processing happens client-side - your images never leave your browser"
+    }
   }
 }
 

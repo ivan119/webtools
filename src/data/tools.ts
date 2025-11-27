@@ -25,7 +25,8 @@ export const tools: ToolItem[] = [
   { id: 'avif-to-jpg', title: 'AVIF → JPG Converter', desc: 'Convert AVIF images to JPG.', href: '/tools?tool=avif-to-jpg', category: 'images' },
   { id: 'jpg-to-avif', title: 'JPG → AVIF Converter', desc: 'Convert JPG to modern AVIF format.', href: '/tools?tool=jpg-to-avif', category: 'images' },
   { id: 'json-formatter', title: 'JSON Formatter', desc: 'Pretty-print and validate JSON.', href: '/tools?tool=json-formatter', category: 'text' },
-  { id: 'qr-code-generator', title: 'QR Code Generator', desc: 'Generate QR codes from text, URLs, or any data.', href: '/tools?tool=qr-code-generator', category: 'other' }
+  { id: 'qr-code-generator', title: 'QR Code Generator', desc: 'Generate QR codes from text, URLs, or any data.', href: '/tools?tool=qr-code-generator', category: 'other' },
+  { id: 'image-metadata-viewer', title: 'Image Metadata Viewer', desc: 'View EXIF and image metadata.', href: '/tools?tool=image-metadata-viewer', category: 'images' }
 ]
 
 

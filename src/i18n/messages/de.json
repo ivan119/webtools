@@ -46,6 +46,74 @@
     },
     "copySuccess": "QR-Code-SVG in die Zwischenablage kopiert!",
     "copyFailed": "SVG konnte nicht kopiert werden"
+  },
+  "imageMetadataViewer": {
+    "title": "Bild-Metadaten-Viewer",
+    "description": "EXIF-Daten, Kameraeinstellungen, GPS-Koordinaten und andere Metadaten aus Ihren Bildern anzeigen.",
+    "uploadLabel": "Bild hochladen",
+    "loading": "Bild-Metadaten werden gelesen...",
+    "preview": "Bildvorschau",
+    "metadata": "Metadaten",
+    "clear": "Löschen",
+    "noMetadata": "Keine Metadaten in diesem Bild gefunden. Das Bild wurde möglicherweise verarbeitet oder von EXIF-Daten befreit.",
+    "errors": {
+      "failedToRead": "Metadaten konnten nicht gelesen werden. Bitte versuchen Sie ein anderes Bild."
+    },
+    "sections": {
+      "basicInfo": "Grundinformationen",
+      "dimensions": "Bildabmessungen",
+      "camera": "Kamerainformationen",
+      "cameraSettings": "Kameraeinstellungen",
+      "location": "Standortinformationen",
+      "dateTime": "Datum & Uhrzeit",
+      "software": "Software & Urheberrecht",
+      "colorProfile": "Farbprofil (ICC)",
+      "iptc": "IPTC-Metadaten",
+      "xmp": "XMP-Metadaten",
+      "other": "Weitere Metadaten"
+    },
+    "fields": {
+      "fileName": "Dateiname",
+      "fileSize": "Dateigröße",
+      "fileType": "Dateityp",
+      "lastModified": "Zuletzt geändert",
+      "width": "Breite",
+      "height": "Höhe",
+      "orientation": "Ausrichtung",
+      "make": "Hersteller",
+      "model": "Modell",
+      "lensMake": "Objektivhersteller",
+      "lensModel": "Objektivmodell",
+      "iso": "ISO",
+      "exposureTime": "Belichtungszeit",
+      "aperture": "Blende",
+      "focalLength": "Brennweite",
+      "flash": "Blitz",
+      "whiteBalance": "Weißabgleich",
+      "exposureMode": "Belichtungsmodus",
+      "meteringMode": "Messmodus",
+      "latitude": "Breitengrad",
+      "longitude": "Längengrad",
+      "altitude": "Höhe",
+      "gpsDate": "GPS-Datum",
+      "gpsSpeed": "GPS-Geschwindigkeit",
+      "gpsDirection": "GPS-Richtung",
+      "mapLink": "Auf Karte anzeigen",
+      "dateTimeOriginal": "Datum/Uhrzeit Original",
+      "dateTime": "Datum/Uhrzeit",
+      "createDate": "Erstellungsdatum",
+      "modifyDate": "Änderungsdatum",
+      "software": "Software",
+      "artist": "Künstler",
+      "copyright": "Urheberrecht"
+    },
+    "info": {
+      "title": "Über Bild-Metadaten",
+      "point1": "EXIF-Daten werden von Kameras und Bildbearbeitungssoftware in Bilder eingebettet",
+      "point2": "Nicht alle Bilder enthalten Metadaten - einige wurden möglicherweise aus Datenschutzgründen entfernt",
+      "point3": "GPS-Koordinaten zeigen den Standort, an dem ein Foto aufgenommen wurde",
+      "point4": "Alle Verarbeitung erfolgt clientseitig - Ihre Bilder verlassen nie Ihren Browser"
+    }
   }
 }
 

@@ -46,5 +46,73 @@
     },
     "copySuccess": "¡SVG del código QR copiado al portapapeles!",
     "copyFailed": "Error al copiar SVG"
+  },
+  "imageMetadataViewer": {
+    "title": "Visor de Metadatos de Imagen",
+    "description": "Ver datos EXIF, configuración de cámara, coordenadas GPS y otros metadatos de tus imágenes.",
+    "uploadLabel": "Subir Imagen",
+    "loading": "Leyendo metadatos de imagen...",
+    "preview": "Vista Previa de Imagen",
+    "metadata": "Metadatos",
+    "clear": "Limpiar",
+    "noMetadata": "No se encontraron metadatos en esta imagen. La imagen puede haber sido procesada o despojada de datos EXIF.",
+    "errors": {
+      "failedToRead": "Error al leer metadatos de imagen. Por favor, prueba con otra imagen."
+    },
+    "sections": {
+      "basicInfo": "Información Básica",
+      "dimensions": "Dimensiones de Imagen",
+      "camera": "Información de Cámara",
+      "cameraSettings": "Configuración de Cámara",
+      "location": "Información de Ubicación",
+      "dateTime": "Fecha y Hora",
+      "software": "Software y Derechos de Autor",
+      "colorProfile": "Perfil de Color (ICC)",
+      "iptc": "Metadatos IPTC",
+      "xmp": "Metadatos XMP",
+      "other": "Otros Metadatos"
+    },
+    "fields": {
+      "fileName": "Nombre de Archivo",
+      "fileSize": "Tamaño de Archivo",
+      "fileType": "Tipo de Archivo",
+      "lastModified": "Última Modificación",
+      "width": "Ancho",
+      "height": "Alto",
+      "orientation": "Orientación",
+      "make": "Marca",
+      "model": "Modelo",
+      "lensMake": "Marca de Lente",
+      "lensModel": "Modelo de Lente",
+      "iso": "ISO",
+      "exposureTime": "Tiempo de Exposición",
+      "aperture": "Apertura",
+      "focalLength": "Distancia Focal",
+      "flash": "Flash",
+      "whiteBalance": "Balance de Blancos",
+      "exposureMode": "Modo de Exposición",
+      "meteringMode": "Modo de Medición",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "altitude": "Altitud",
+      "gpsDate": "Fecha GPS",
+      "gpsSpeed": "Velocidad GPS",
+      "gpsDirection": "Dirección GPS",
+      "mapLink": "Ver en Mapa",
+      "dateTimeOriginal": "Fecha/Hora Original",
+      "dateTime": "Fecha/Hora",
+      "createDate": "Fecha de Creación",
+      "modifyDate": "Fecha de Modificación",
+      "software": "Software",
+      "artist": "Artista",
+      "copyright": "Derechos de Autor"
+    },
+    "info": {
+      "title": "Acerca de los Metadatos de Imagen",
+      "point1": "Los datos EXIF están incrustados en las imágenes por cámaras y software de edición de fotos",
+      "point2": "No todas las imágenes contienen metadatos - algunas pueden haber sido eliminadas por privacidad",
+      "point3": "Las coordenadas GPS revelan la ubicación donde se tomó una foto",
+      "point4": "Todo el procesamiento ocurre del lado del cliente - tus imágenes nunca salen de tu navegador"
+    }
   }
 }
