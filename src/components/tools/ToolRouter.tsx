@@ -18,6 +18,7 @@ import WordCounter from "./text/WordCounter";
 import JsonFormatter from "./text/JsonFormatter";
 import MetaTagPreview from "./seo/MetaTagPreview";
 import HashGenerator from "./other/HashGenerator";
+import QRCodeGenerator from "./QRCodeGenerator";
 
 type ToolId =
   | "jpeg-to-png"
@@ -35,7 +36,8 @@ type ToolId =
   | "meta-preview"
   | "hash-generator"
   | "png-to-ico"
-  | "json-formatter";
+  | "json-formatter"
+  | "qr-code-generator";
 
 interface ToolRouterProps {
   toolId: ToolId | null;
@@ -58,6 +60,7 @@ const toolComponents: Record<ToolId, React.ComponentType> = {
   "hash-generator": HashGenerator,
   "png-to-ico": PngToIcoConverter,
   "json-formatter": JsonFormatter,
+  "qr-code-generator": QRCodeGenerator,
 };
 
 export default function ToolRouter({ toolId }: ToolRouterProps) {

@@ -16,6 +16,7 @@
     "next": "latest",
     "next-intl": "^4.5.6",
     "nuqs": "^2.8.1",
+    "qrcode.react": "^4.2.0",
     "react": "latest",
     "react-dom": "19.2.0",
     "react-hook-form": "^7.66.1",
