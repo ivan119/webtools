@@ -5,7 +5,6 @@ import { Navbar } from "../../components/chrome/Navbar";
 import { Footer } from "../../components/chrome/Footer";
 import { BackgroundFX } from "../../components/fx/BackgroundFX";
 import { MainHero } from "../../components/hero/MainHero";
-import { ToolCategories } from "../../components/tools/ToolCategories";
 import { FeaturedTools } from "../../components/tools/FeaturedTools";
 import { AdBanner } from "../../components/ads/AdBanner";
 import { CommandPalette } from "../../components/chrome/CommandPalette";
@@ -17,7 +16,6 @@ export default async function Home() {
       <CommandPalette />
       <MainHero />
       <main className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 py-10">
-        <ToolCategories />
         <FeaturedTools />
         <AdBanner />
       </main>
