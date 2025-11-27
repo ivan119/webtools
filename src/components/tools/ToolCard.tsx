@@ -13,19 +13,18 @@ export function ToolCard({
   href: string;
 }) {
   return (
-    <motion.div
-      whileHover={{ scale: 1.03 }}
-      className="relative overflow-hidden rounded-2xl p-6 backdrop-blur-lg bg-white/5 border border-cyan-400/20 hover:border-cyan-400/50 transition"
-    >
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-purple-600/10 opacity-50" />
-      <h3 className="text-xl font-bold text-cyan-300 mb-2">{title}</h3>
-      <p className="text-sm text-slate-400 mb-4">{desc}</p>
-      <Link
-        href={href}
-        className="text-purple-400 hover:text-cyan-300 font-semibold"
+    <Link href={href}>
+      <motion.div
+        whileHover={{ scale: 1.03 }}
+        className="relative overflow-hidden rounded-2xl p-6 backdrop-blur-lg bg-white/5 border border-cyan-400/20 hover:border-cyan-400/50 transition cursor-pointer"
       >
-        Open Tool →
-      </Link>
-    </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-purple-600/10 opacity-50" />
+        <h3 className="text-xl font-bold text-cyan-300 mb-2">{title}</h3>
+        <p className="text-sm text-slate-400 mb-4">{desc}</p>
+        <div className="text-purple-400 hover:text-cyan-300 font-semibold">
+          Open Tool →
+        </div>
+      </motion.div>
+    </Link>
   );
 }

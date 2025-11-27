@@ -45,7 +45,7 @@ export function CommandPalette() {
             <div className="max-h-80 overflow-auto mt-2">
               {results.map((r) => (
                 <a
-                  key={r.href}
+                  key={r.id}
                   href={r.href}
                   className="block px-3 py-2 rounded-md hover:bg-white/5"
                 >

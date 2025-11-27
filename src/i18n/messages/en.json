@@ -12,7 +12,12 @@
   "upgrade": "Upgrade to Pro to unlock batch tools and higher limits",
   "allTools": "All Tools",
   "searchPlaceholder": "Search tools",
-  "connectWallet": "Connect Wallet"
+  "connectWallet": "Connect Wallet",
+  "about": {
+    "title": "About",
+    "p1": "WebTools is a collection of fast, privacy‑friendly utilities for everyday work. Convert, format, preview and optimize files directly in your browser—no uploads, no sign‑in, and everything runs client‑side.",
+    "p2": "This project is built with Next.js, React, and a sprinkle of neon‑styled UI. We focus on clean UX, accessible components, and speed."
+  }
 }
 
 
