@@ -9,6 +9,7 @@ import {
 } from "../../i18n/navigation";
 import { locales } from "../../i18n/routing";
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 const languageNames: Record<string, { name: string; flag: string }> = {
   en: { name: "English", flag: "🇺🇸" },
   de: { name: "Deutsch", flag: "🇩🇪" },
@@ -24,6 +25,7 @@ const languages = locales.map((code) => ({
 export function LocaleSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,19 +52,19 @@ export function LocaleSwitcher() {
   }, []);
   const handleClick = (newLocale: string) => {
     setIsOpen(false);
-    console.log("pathname", pathname);
-    const localizedPath = getPathname({
-      href: {
-        pathname: pathname,
-        query: router.query as QueryParams,
-      },
-      locale: newLocale,
-    });
-    // Check that the localizedPath is valid before calling router.push
-    if (localizedPath) {
-      console.log("Localized Path:", localizedPath); // Debugging the localized path
-      router.replace(pathname, { locale: newLocale });
-    }
+
+    // Get current search params and preserve them
+    const currentSearchParams = searchParams.toString();
+
+    // Build the path with search params preserved
+    // pathname from usePathname() is already locale-agnostic
+    const pathWithParams = currentSearchParams
+      ? `${pathname}?${currentSearchParams}`
+      : pathname;
+
+    // Use router.push to navigate without full page refresh
+    // Pass the pathname with query params and locale option
+    router.push(pathWithParams, { locale: newLocale });
   };
   return (
     <div className="relative" ref={dropdownRef}>
