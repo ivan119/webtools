@@ -17,6 +17,35 @@
     "title": "About",
     "p1": "WebTools is a collection of fast, privacy‑friendly utilities for everyday work. Convert, format, preview and optimize files directly in your browser—no uploads, no sign‑in, and everything runs client‑side.",
     "p2": "This project is built with Next.js, React, and a sprinkle of neon‑styled UI. We focus on clean UX, accessible components, and speed."
+  },
+  "qrCodeGenerator": {
+    "title": "QR Code Generator",
+    "description": "Generate QR codes from text, URLs, or any data. Customize size, colors, and error correction level.",
+    "textOrUrl": "Text or URL",
+    "textOrUrlPlaceholder": "Enter text, URL, or any data to encode...",
+    "size": "Size (px)",
+    "errorCorrection": "Error Correction",
+    "foregroundColor": "Foreground Color",
+    "backgroundColor": "Background Color",
+    "includeMargin": "Include margin (quiet zone)",
+    "preview": "Preview",
+    "downloadPng": "Download PNG",
+    "copySvg": "Copy SVG",
+    "enterTextToGenerate": "Enter text above to generate QR code",
+    "quickExamples": "Quick Examples",
+    "aboutQRCodes": "About QR Codes",
+    "aboutQRCodes1": "QR codes can store up to 4,296 alphanumeric characters",
+    "aboutQRCodes2": "Higher error correction levels allow codes to work even when partially damaged",
+    "aboutQRCodes3": "Use \"High\" error correction for codes that may be printed or displayed in low quality",
+    "aboutQRCodes4": "QR codes are free to use and don't require any special permissions",
+    "errorLevels": {
+      "L": "Low (~7% error correction)",
+      "M": "Medium (~15% error correction)",
+      "Q": "Quartile (~25% error correction)",
+      "H": "High (~30% error correction)"
+    },
+    "copySuccess": "QR code SVG copied to clipboard!",
+    "copyFailed": "Failed to copy SVG"
   }
 }
 

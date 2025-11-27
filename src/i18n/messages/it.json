@@ -17,5 +17,34 @@
     "title": "Chi Siamo",
     "p1": "WebTools è una raccolta di utility veloci e attente alla privacy per l'uso quotidiano. Converti, formatta, visualizza in anteprima e ottimizza i file direttamente nel browser: niente upload, nessun accesso, tutto lato client.",
     "p2": "Il progetto è costruito con Next.js, React e un tocco di UI in stile neon. Puntiamo su UX pulita, componenti accessibili e velocità."
+  },
+  "qrCodeGenerator": {
+    "title": "Generatore di Codici QR",
+    "description": "Genera codici QR da testo, URL o qualsiasi dato. Personalizza dimensione, colori e livello di correzione errori.",
+    "textOrUrl": "Testo o URL",
+    "textOrUrlPlaceholder": "Inserisci testo, URL o qualsiasi dato da codificare...",
+    "size": "Dimensione (px)",
+    "errorCorrection": "Correzione Errori",
+    "foregroundColor": "Colore Primo Piano",
+    "backgroundColor": "Colore Sfondo",
+    "includeMargin": "Includi margine (zona silenziosa)",
+    "preview": "Anteprima",
+    "downloadPng": "Scarica PNG",
+    "copySvg": "Copia SVG",
+    "enterTextToGenerate": "Inserisci testo sopra per generare codice QR",
+    "quickExamples": "Esempi Rapidi",
+    "aboutQRCodes": "Informazioni sui Codici QR",
+    "aboutQRCodes1": "I codici QR possono memorizzare fino a 4.296 caratteri alfanumerici",
+    "aboutQRCodes2": "Livelli di correzione errori più alti consentono ai codici di funzionare anche quando parzialmente danneggiati",
+    "aboutQRCodes3": "Usa correzione errori \"Alta\" per codici che possono essere stampati o visualizzati in bassa qualità",
+    "aboutQRCodes4": "I codici QR sono gratuiti e non richiedono permessi speciali",
+    "errorLevels": {
+      "L": "Basso (~7% correzione errori)",
+      "M": "Medio (~15% correzione errori)",
+      "Q": "Quartile (~25% correzione errori)",
+      "H": "Alto (~30% correzione errori)"
+    },
+    "copySuccess": "SVG del codice QR copiato negli appunti!",
+    "copyFailed": "Impossibile copiare SVG"
   }
 }

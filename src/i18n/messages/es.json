@@ -17,5 +17,34 @@
     "title": "Acerca de",
     "p1": "WebTools es una colección de utilidades rápidas y privadas para el día a día. Convierte, formatea, previsualiza y optimiza archivos directamente en tu navegador: sin subidas, sin inicio de sesión, todo del lado del cliente.",
     "p2": "Este proyecto está construido con Next.js, React y un toque de UI con estilo neón. Priorizamos una UX clara, componentes accesibles y velocidad."
+  },
+  "qrCodeGenerator": {
+    "title": "Generador de Códigos QR",
+    "description": "Genera códigos QR a partir de texto, URLs o cualquier dato. Personaliza tamaño, colores y nivel de corrección de errores.",
+    "textOrUrl": "Texto o URL",
+    "textOrUrlPlaceholder": "Ingresa texto, URL o cualquier dato para codificar...",
+    "size": "Tamaño (px)",
+    "errorCorrection": "Corrección de Errores",
+    "foregroundColor": "Color de Primer Plano",
+    "backgroundColor": "Color de Fondo",
+    "includeMargin": "Incluir margen (zona silenciosa)",
+    "preview": "Vista Previa",
+    "downloadPng": "Descargar PNG",
+    "copySvg": "Copiar SVG",
+    "enterTextToGenerate": "Ingresa texto arriba para generar código QR",
+    "quickExamples": "Ejemplos Rápidos",
+    "aboutQRCodes": "Acerca de los Códigos QR",
+    "aboutQRCodes1": "Los códigos QR pueden almacenar hasta 4.296 caracteres alfanuméricos",
+    "aboutQRCodes2": "Los niveles más altos de corrección de errores permiten que los códigos funcionen incluso cuando están parcialmente dañados",
+    "aboutQRCodes3": "Usa corrección de errores \"Alta\" para códigos que pueden imprimirse o mostrarse en baja calidad",
+    "aboutQRCodes4": "Los códigos QR son gratuitos y no requieren permisos especiales",
+    "errorLevels": {
+      "L": "Bajo (~7% corrección de errores)",
+      "M": "Medio (~15% corrección de errores)",
+      "Q": "Cuartil (~25% corrección de errores)",
+      "H": "Alto (~30% corrección de errores)"
+    },
+    "copySuccess": "¡SVG del código QR copiado al portapapeles!",
+    "copyFailed": "Error al copiar SVG"
   }
 }

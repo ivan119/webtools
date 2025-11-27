@@ -17,6 +17,35 @@
     "title": "Über",
     "p1": "WebTools ist eine Sammlung schneller, datenschutzfreundlicher Utilities für den Alltag. Konvertieren, formatieren, previewen und optimieren Sie Dateien direkt im Browser – ohne Uploads, ohne Anmeldung, alles clientseitig.",
     "p2": "Das Projekt basiert auf Next.js, React und einem Hauch Neon‑UI. Fokus auf klare UX, zugängliche Komponenten und Geschwindigkeit."
+  },
+  "qrCodeGenerator": {
+    "title": "QR-Code-Generator",
+    "description": "Generieren Sie QR-Codes aus Text, URLs oder beliebigen Daten. Passen Sie Größe, Farben und Fehlerkorrekturstufe an.",
+    "textOrUrl": "Text oder URL",
+    "textOrUrlPlaceholder": "Text, URL oder beliebige Daten zum Kodieren eingeben...",
+    "size": "Größe (px)",
+    "errorCorrection": "Fehlerkorrektur",
+    "foregroundColor": "Vordergrundfarbe",
+    "backgroundColor": "Hintergrundfarbe",
+    "includeMargin": "Rand einbeziehen (Ruhezone)",
+    "preview": "Vorschau",
+    "downloadPng": "PNG herunterladen",
+    "copySvg": "SVG kopieren",
+    "enterTextToGenerate": "Geben Sie oben Text ein, um einen QR-Code zu generieren",
+    "quickExamples": "Schnellbeispiele",
+    "aboutQRCodes": "Über QR-Codes",
+    "aboutQRCodes1": "QR-Codes können bis zu 4.296 alphanumerische Zeichen speichern",
+    "aboutQRCodes2": "Höhere Fehlerkorrekturstufen ermöglichen es Codes, auch bei teilweiser Beschädigung zu funktionieren",
+    "aboutQRCodes3": "Verwenden Sie \"Hoch\" Fehlerkorrektur für Codes, die gedruckt oder in niedriger Qualität angezeigt werden können",
+    "aboutQRCodes4": "QR-Codes sind kostenlos und erfordern keine besonderen Berechtigungen",
+    "errorLevels": {
+      "L": "Niedrig (~7% Fehlerkorrektur)",
+      "M": "Mittel (~15% Fehlerkorrektur)",
+      "Q": "Quartil (~25% Fehlerkorrektur)",
+      "H": "Hoch (~30% Fehlerkorrektur)"
+    },
+    "copySuccess": "QR-Code-SVG in die Zwischenablage kopiert!",
+    "copyFailed": "SVG konnte nicht kopiert werden"
   }
 }
 

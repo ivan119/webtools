@@ -2,9 +2,11 @@
 
 import React, { useState, useCallback } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { useTranslations } from "next-intl";
 import { TextArea, Button, NumberInput, Select } from "../shared";
 
 export default function QRCodeGenerator() {
+  const t = useTranslations("qrCodeGenerator");
   const [text, setText] = useState("");
   const [size, setSize] = useState(256);
   const [level, setLevel] = useState<"L" | "M" | "Q" | "H">("M");
@@ -46,25 +48,25 @@ export default function QRCodeGenerator() {
 
     const svgData = new XMLSerializer().serializeToString(svg);
     navigator.clipboard.writeText(svgData).then(() => {
-      alert("QR code SVG copied to clipboard!");
+      alert(t("copySuccess"));
     }).catch(() => {
-      alert("Failed to copy SVG");
+      alert(t("copyFailed"));
     });
-  }, []);
+  }, [t]);
 
   const levelOptions = [
-    { value: "L", label: "Low (~7% error correction)" },
-    { value: "M", label: "Medium (~15% error correction)" },
-    { value: "Q", label: "Quartile (~25% error correction)" },
-    { value: "H", label: "High (~30% error correction)" },
+    { value: "L", label: t("errorLevels.L") },
+    { value: "M", label: t("errorLevels.M") },
+    { value: "Q", label: t("errorLevels.Q") },
+    { value: "H", label: t("errorLevels.H") },
   ];
 
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">QR Code Generator</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-300">
-          Generate QR codes from text, URLs, or any data. Customize size, colors, and error correction level.
+          {t("description")}
         </p>
       </div>
 
@@ -72,16 +74,16 @@ export default function QRCodeGenerator() {
         {/* Input Section */}
         <div className="space-y-4">
           <TextArea
-            label="Text or URL"
+            label={t("textOrUrl")}
             value={text}
             onChange={setText}
-            placeholder="Enter text, URL, or any data to encode..."
+            placeholder={t("textOrUrlPlaceholder")}
             rows={6}
           />
 
           <div className="grid grid-cols-2 gap-4">
             <NumberInput
-              label="Size (px)"
+              label={t("size")}
               value={size}
               onChange={setSize}
               min={100}
@@ -89,7 +91,7 @@ export default function QRCodeGenerator() {
               step={10}
             />
             <Select
-              label="Error Correction"
+              label={t("errorCorrection")}
               value={level}
               onChange={(value) => setLevel(value as "L" | "M" | "Q" | "H")}
               options={levelOptions}
@@ -98,7 +100,7 @@ export default function QRCodeGenerator() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Foreground Color</label>
+              <label className="block text-sm font-medium mb-2">{t("foregroundColor")}</label>
               <div className="flex gap-2">
                 <input
                   type="color"
@@ -116,7 +118,7 @@ export default function QRCodeGenerator() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2">Background Color</label>
+              <label className="block text-sm font-medium mb-2">{t("backgroundColor")}</label>
               <div className="flex gap-2">
                 <input
                   type="color"
@@ -144,7 +146,7 @@ export default function QRCodeGenerator() {
               className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-700"
             />
             <label htmlFor="includeMargin" className="text-sm">
-              Include margin (quiet zone)
+              {t("includeMargin")}
             </label>
           </div>
         </div>
@@ -152,7 +154,7 @@ export default function QRCodeGenerator() {
         {/* QR Code Preview */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Preview</h2>
+            <h2 className="text-lg font-semibold">{t("preview")}</h2>
             <div className="flex gap-2">
               <Button
                 onClick={downloadQRCode}
@@ -160,7 +162,7 @@ export default function QRCodeGenerator() {
                 size="sm"
                 variant="secondary"
               >
-                Download PNG
+                {t("downloadPng")}
               </Button>
               <Button
                 onClick={copyAsSVG}
@@ -168,7 +170,7 @@ export default function QRCodeGenerator() {
                 size="sm"
                 variant="secondary"
               >
-                Copy SVG
+                {t("copySvg")}
               </Button>
             </div>
           </div>
@@ -191,14 +193,14 @@ export default function QRCodeGenerator() {
               </div>
             ) : (
               <div className="text-center text-neutral-400 dark:text-neutral-600">
-                <p className="text-sm">Enter text above to generate QR code</p>
+                <p className="text-sm">{t("enterTextToGenerate")}</p>
               </div>
             )}
           </div>
 
           {/* Quick Examples */}
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold">Quick Examples</h3>
+            <h3 className="text-sm font-semibold">{t("quickExamples")}</h3>
             <div className="flex flex-wrap gap-2">
               <Button
                 onClick={() => setText("https://example.com")}
@@ -243,13 +245,13 @@ export default function QRCodeGenerator() {
       {/* Info Section */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
         <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
-          About QR Codes
+          {t("aboutQRCodes")}
         </h3>
         <ul className="text-xs text-blue-800 dark:text-blue-200 space-y-1">
-          <li>• QR codes can store up to 4,296 alphanumeric characters</li>
-          <li>• Higher error correction levels allow codes to work even when partially damaged</li>
-          <li>• Use "High" error correction for codes that may be printed or displayed in low quality</li>
-          <li>• QR codes are free to use and don't require any special permissions</li>
+          <li>• {t("aboutQRCodes1")}</li>
+          <li>• {t("aboutQRCodes2")}</li>
+          <li>• {t("aboutQRCodes3")}</li>
+          <li>• {t("aboutQRCodes4")}</li>
         </ul>
       </div>
     </div>
