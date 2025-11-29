@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import JpegToPngConverter from "./images/JpegToPngConverter";
 import PngToJpgConverter from "./PngToJpgConverter";
@@ -18,6 +19,8 @@ import WordCounter from "./text/WordCounter";
 import JsonFormatter from "./text/JsonFormatter";
 import MetaTagPreview from "./seo/MetaTagPreview";
 import HashGenerator from "./other/HashGenerator";
+import QRCodeGenerator from "./QRCodeGenerator";
+import ImageMetadataViewer from "./ImageMetadataViewer";
 
 type ToolId =
   | "jpeg-to-png"
@@ -35,7 +38,9 @@ type ToolId =
   | "meta-preview"
   | "hash-generator"
   | "png-to-ico"
-  | "json-formatter";
+  | "json-formatter"
+  | "qr-code-generator"
+  | "image-metadata-viewer";
 
 interface ToolRouterProps {
   toolId: ToolId | null;
@@ -58,17 +63,21 @@ const toolComponents: Record<ToolId, React.ComponentType> = {
   "hash-generator": HashGenerator,
   "png-to-ico": PngToIcoConverter,
   "json-formatter": JsonFormatter,
+  "qr-code-generator": QRCodeGenerator,
+  "image-metadata-viewer": ImageMetadataViewer,
 };
 
 export default function ToolRouter({ toolId }: ToolRouterProps) {
+  const t = useTranslations();
+  
   if (!toolId || !toolComponents[toolId]) {
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-neutral-600 dark:text-neutral-400 mb-2">
-          Select a Tool
+          {t("tools.selectTool")}
         </h2>
         <p className="text-neutral-500 dark:text-neutral-500">
-          Choose a tool from the list to get started.
+          {t("tools.chooseTool")}
         </p>
       </div>
     );
@@ -82,7 +91,7 @@ export default function ToolRouter({ toolId }: ToolRouterProps) {
           href="/tools"
           className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
         >
-          ← Back to Tools
+          ← {t("tools.backToTools")}
         </Link>
       </div>
       <ToolComponent />

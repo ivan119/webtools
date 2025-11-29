@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FileUpload, Button, Checkbox } from "../../shared";
 
 type QueuedFile = {
@@ -24,18 +25,18 @@ function blobToDataURL(file: Blob): Promise<string> {
   });
 }
 
-function loadImage(src: string): Promise<HTMLImageElement> {
+function loadImage(src: string, t: any): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("Failed to load image"));
+    img.onerror = () => reject(new Error(t("errors.loadFailed")));
     img.src = src;
   });
 }
 
-async function rasterToSvg1to1(file: File): Promise<Blob> {
+async function rasterToSvg1to1(file: File, t: any): Promise<Blob> {
   const dataUrl = await blobToDataURL(file);
-  const img = await loadImage(dataUrl);
+  const img = await loadImage(dataUrl, t);
   const w = Math.max(1, img.naturalWidth || img.width);
   const h = Math.max(1, img.naturalHeight || img.height);
 
@@ -49,6 +50,7 @@ async function rasterToSvg1to1(file: File): Promise<Blob> {
 }
 
 export default function ImageToSvgConverter() {
+  const t = useTranslations("imageToSvg");
   const [queue, setQueue] = useState<QueuedFile[]>([]);
   const [agreeRecent, setAgreeRecent] = useState<boolean>(false);
   const inputKeyRef = useRef<number>(0);
@@ -58,31 +60,34 @@ export default function ImageToSvgConverter() {
     [queue]
   );
 
-  const addFiles = useCallback((files: FileList | File[]) => {
-    const arr = Array.from(files);
-    setQueue((prev) => {
-      const remaining = Math.max(0, MAX_FILES - prev.length);
-      const toAdd = arr.slice(0, remaining).map((file, idx) => {
-        const id = `${Date.now()}-${idx}-${file.name}`;
-        const isRaster =
-          /image\/(png|jpeg|jpg|webp|gif|bmp)/i.test(file.type) ||
-          /\.(png|jpe?g|webp|gif|bmp)$/i.test(file.name);
-        if (!isRaster) {
-          return {
-            id,
-            file,
-            error: "Supported: PNG, JPG, WEBP, GIF, BMP",
-          } as QueuedFile;
-        }
-        if (file.size > MAX_SIZE_BYTES) {
-          return { id, file, error: "Max size is 8MB" } as QueuedFile;
-        }
-        return { id, file } as QueuedFile;
+  const addFiles = useCallback(
+    (files: FileList | File[]) => {
+      const arr = Array.from(files);
+      setQueue((prev) => {
+        const remaining = Math.max(0, MAX_FILES - prev.length);
+        const toAdd = arr.slice(0, remaining).map((file, idx) => {
+          const id = `${Date.now()}-${idx}-${file.name}`;
+          const isRaster =
+            /image\/(png|jpeg|jpg|webp|gif|bmp)/i.test(file.type) ||
+            /\.(png|jpe?g|webp|gif|bmp)$/i.test(file.name);
+          if (!isRaster) {
+            return {
+              id,
+              file,
+              error: t("errors.supportedFormats"),
+            } as QueuedFile;
+          }
+          if (file.size > MAX_SIZE_BYTES) {
+            return { id, file, error: t("errors.maxSize") } as QueuedFile;
+          }
+          return { id, file } as QueuedFile;
+        });
+        return [...prev, ...toAdd];
       });
-      return [...prev, ...toAdd];
-    });
-    inputKeyRef.current++;
-  }, []);
+      inputKeyRef.current++;
+    },
+    [t]
+  );
 
   const handleConvert = useCallback(async () => {
     const updated = [...queue];
@@ -90,17 +95,17 @@ export default function ImageToSvgConverter() {
       const item = updated[i];
       if (item.error || item.resultUrl) continue;
       try {
-        const svgBlob = await rasterToSvg1to1(item.file);
+        const svgBlob = await rasterToSvg1to1(item.file, t);
         const fname =
           item.file.name.replace(/\.(png|jpe?g|webp|gif|bmp)$/i, "") + ".svg";
         const url = URL.createObjectURL(svgBlob);
         updated[i] = { ...item, resultUrl: url, resultName: fname };
       } catch (e) {
-        updated[i] = { ...item, error: "Conversion failed" };
+        updated[i] = { ...item, error: t("errors.conversionFailed") };
       }
     }
     setQueue(updated);
-  }, [queue]);
+  }, [queue, t]);
 
   const clearQueue = useCallback(() => {
     queue.forEach((q) => q.resultUrl && URL.revokeObjectURL(q.resultUrl));
@@ -110,9 +115,9 @@ export default function ImageToSvgConverter() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">Image to SVG Converter</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-300">
-          Wrap any image in a pixel-perfect SVG using an embedded raster.
+          {t("description")}
         </p>
       </div>
 
@@ -124,32 +129,26 @@ export default function ImageToSvgConverter() {
         onFilesSelected={addFiles}
         className=""
       >
-        <div className="text-sm">
-          Drop your raster images here, or click to select.
-        </div>
-        <div className="text-xs text-neutral-500">
-          Up to 10 files, max 8MB each.
-        </div>
+        <div className="text-sm">{t("dropFiles")}</div>
+        <div className="text-xs text-neutral-500">{t("fileLimits")}</div>
       </FileUpload>
 
       <Checkbox
-        label="I agree to display the image in Recently Converted"
+        label={t("agreeRecent")}
         checked={agreeRecent}
         onChange={setAgreeRecent}
       />
 
       <div className="flex items-center gap-3">
         <Button onClick={handleConvert} disabled={pendingCount === 0}>
-          Convert {pendingCount > 0 ? `(${pendingCount})` : ""}
+          {t("convert")} {pendingCount > 0 ? `(${pendingCount})` : ""}
         </Button>
         {queue.length > 0 && (
           <Button onClick={clearQueue} variant="secondary">
-            Clear All
+            {t("clearAll")}
           </Button>
         )}
-        <span className="text-sm text-neutral-500">
-          Your SVG files will appear here once converted.
-        </span>
+        <span className="text-sm text-neutral-500">{t("filesWillAppear")}</span>
       </div>
 
       {queue.length > 0 && (
@@ -171,7 +170,7 @@ export default function ImageToSvgConverter() {
                 <div className="flex items-center justify-between gap-2">
                   <img
                     src={q.resultUrl}
-                    alt={q.resultName || "converted"}
+                    alt={q.resultName || t("converted")}
                     className="h-8 w-8 object-cover rounded"
                   />
                   <a
@@ -179,11 +178,13 @@ export default function ImageToSvgConverter() {
                     download={q.resultName || "converted.svg"}
                     className="text-sm underline"
                   >
-                    Download SVG
+                    {t("downloadSvg")}
                   </a>
                 </div>
               ) : (
-                <div className="text-xs text-neutral-500">Ready to convert</div>
+                <div className="text-xs text-neutral-500">
+                  {t("readyToConvert")}
+                </div>
               )}
             </li>
           ))}

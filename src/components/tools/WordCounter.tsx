@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { TextArea, Button } from "../shared";
 
 type TextStats = {
@@ -31,6 +32,7 @@ function calculateStats(text: string): TextStats {
 }
 
 export default function WordCounter() {
+  const t = useTranslations("wordCounter");
   const [text, setText] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -57,40 +59,40 @@ export default function WordCounter() {
   const copyText = async () => {
     try {
       await navigator.clipboard.writeText(text);
-      alert("Text copied to clipboard!");
+      alert(t("copySuccess"));
     } catch (err) {
-      alert("Failed to copy text");
+      alert(t("copyFailed"));
     }
   };
 
   const copyStats = async () => {
-    const statsText = `Words: ${stats.words}
-Characters: ${stats.characters}
-Characters (no spaces): ${stats.charactersNoSpaces}
-Sentences: ${stats.sentences}
-Paragraphs: ${stats.paragraphs}
-Lines: ${stats.lines}`;
+    const statsText = `${t("words")}: ${stats.words}
+${t("characters")}: ${stats.characters}
+${t("characters")} (${t("noSpaces")}): ${stats.charactersNoSpaces}
+${t("sentences")}: ${stats.sentences}
+${t("paragraphs")}: ${stats.paragraphs}
+${t("lines")}: ${stats.lines}`;
     
     try {
       await navigator.clipboard.writeText(statsText);
-      alert("Statistics copied to clipboard!");
+      alert(t("statsCopySuccess"));
     } catch (err) {
-      alert("Failed to copy statistics");
+      alert(t("statsCopyFailed"));
     }
   };
 
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">Word Counter</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-300">
-          Count words, characters, sentences, and more. Perfect for writers, students, and content creators.
+          {t("description")}
         </p>
       </div>
 
       {/* File Upload */}
       <div className="space-y-2">
-        <label className="block text-sm font-medium">Upload Text File</label>
+        <label className="block text-sm font-medium">{t("uploadTextFile")}</label>
         <input
           type="file"
           accept=".txt,.md,.doc,.docx"
@@ -102,10 +104,10 @@ Lines: ${stats.lines}`;
       {/* Text Input */}
       <div className="space-y-3">
         <TextArea
-          label="Text Input"
+          label={t("textInput")}
           value={text}
           onChange={setText}
-          placeholder="Type or paste your text here..."
+          placeholder={t("textPlaceholder")}
           rows={8}
           showCharCount={true}
           maxLength={10000}
@@ -117,14 +119,14 @@ Lines: ${stats.lines}`;
             variant="secondary"
             size="sm"
           >
-            Copy Text
+            {t("copyText")}
           </Button>
           <Button
             onClick={clearText}
             variant="secondary"
             size="sm"
           >
-            Clear
+            {t("clear")}
           </Button>
         </div>
       </div>
@@ -132,39 +134,39 @@ Lines: ${stats.lines}`;
       {/* Statistics */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Statistics</h2>
+          <h2 className="text-lg font-semibold">{t("statistics")}</h2>
           <button
             onClick={copyStats}
             className="text-xs px-2 py-1 rounded border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-900"
           >
-            Copy Stats
+            {t("copyStats")}
           </button>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           <div className="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg text-center">
             <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.words}</div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Words</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">{t("words")}</div>
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg text-center">
             <div className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.characters}</div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Characters</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">{t("characters")}</div>
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg text-center">
             <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{stats.charactersNoSpaces}</div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">No Spaces</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">{t("noSpaces")}</div>
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg text-center">
             <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.sentences}</div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Sentences</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">{t("sentences")}</div>
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg text-center">
             <div className="text-2xl font-bold text-red-600 dark:text-red-400">{stats.paragraphs}</div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Paragraphs</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">{t("paragraphs")}</div>
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg text-center">
             <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{stats.lines}</div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">Lines</div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">{t("lines")}</div>
           </div>
         </div>
 
@@ -174,27 +176,27 @@ Lines: ${stats.lines}`;
             onClick={() => setShowAdvanced(!showAdvanced)}
             className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
           >
-            {showAdvanced ? "Hide" : "Show"} Advanced Statistics
+            {showAdvanced ? t("hideAdvanced") : t("showAdvanced")} {t("advancedStatistics")}
           </button>
           
           {showAdvanced && (
             <div className="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg space-y-2">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="font-medium">Average words per sentence:</span>
+                  <span className="font-medium">{t("avgWordsPerSentence")}</span>
                   <span className="ml-2">{stats.sentences > 0 ? (stats.words / stats.sentences).toFixed(1) : "0"}</span>
                 </div>
                 <div>
-                  <span className="font-medium">Average characters per word:</span>
+                  <span className="font-medium">{t("avgCharsPerWord")}</span>
                   <span className="ml-2">{stats.words > 0 ? (stats.charactersNoSpaces / stats.words).toFixed(1) : "0"}</span>
                 </div>
                 <div>
-                  <span className="font-medium">Average words per paragraph:</span>
+                  <span className="font-medium">{t("avgWordsPerParagraph")}</span>
                   <span className="ml-2">{stats.paragraphs > 0 ? (stats.words / stats.paragraphs).toFixed(1) : "0"}</span>
                 </div>
                 <div>
-                  <span className="font-medium">Reading time (200 WPM):</span>
-                  <span className="ml-2">{Math.ceil(stats.words / 200)} minutes</span>
+                  <span className="font-medium">{t("readingTime")}</span>
+                  <span className="ml-2">{Math.ceil(stats.words / 200)} {t("minutes")}</span>
                 </div>
               </div>
             </div>
