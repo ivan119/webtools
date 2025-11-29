@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FileUpload, Button, Checkbox } from "../../shared";
 
 type QueuedFile = {
@@ -36,21 +37,22 @@ function arrayBufferToIcoPngOnly(buf: ArrayBuffer): Blob {
   return new Blob([ico], { type: "image/x-icon" });
 }
 
-async function fetchUrlAsFile(url: string): Promise<File> {
+async function fetchUrlAsFile(url: string, t: any): Promise<File> {
   const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch URL");
+  if (!res.ok) throw new Error(t("errors.fetchFailed"));
   const contentType = res.headers.get("content-type") || "";
   if (!contentType.includes("image/png")) {
-    throw new Error("URL must point to a PNG image");
+    throw new Error(t("errors.urlMustBePng"));
   }
   const blob = await res.blob();
   if (blob.size > MAX_SIZE_BYTES) {
-    throw new Error("Image exceeds 5MB limit");
+    throw new Error(t("errors.sizeExceeded"));
   }
   return new File([blob], "from-url.png", { type: "image/png" });
 }
 
 export default function PngToIcoConverter() {
+  const t = useTranslations("pngToIco");
   const [queue, setQueue] = useState<QueuedFile[]>([]);
   const [agreeRecent, setAgreeRecent] = useState<boolean>(false);
   const urlInputRef = useRef<HTMLInputElement>(null);
@@ -60,27 +62,30 @@ export default function PngToIcoConverter() {
     [queue]
   );
 
-  const addFiles = useCallback((files: FileList | File[]) => {
-    const arr = Array.from(files);
-    setQueue((prev) => {
-      const remainingSlots = Math.max(0, MAX_FILES - prev.length);
-      const toAdd = arr.slice(0, remainingSlots).map((file, idx) => {
-        const id = `${Date.now()}-${idx}-${file.name}`;
-        if (file.type !== "image/png") {
-          return {
-            id,
-            file,
-            error: "Only PNG files are supported",
-          } as QueuedFile;
-        }
-        if (file.size > MAX_SIZE_BYTES) {
-          return { id, file, error: "Max size is 5MB" } as QueuedFile;
-        }
-        return { id, file } as QueuedFile;
+  const addFiles = useCallback(
+    (files: FileList | File[]) => {
+      const arr = Array.from(files);
+      setQueue((prev) => {
+        const remainingSlots = Math.max(0, MAX_FILES - prev.length);
+        const toAdd = arr.slice(0, remainingSlots).map((file, idx) => {
+          const id = `${Date.now()}-${idx}-${file.name}`;
+          if (file.type !== "image/png") {
+            return {
+              id,
+              file,
+              error: t("errors.onlyPng"),
+            } as QueuedFile;
+          }
+          if (file.size > MAX_SIZE_BYTES) {
+            return { id, file, error: t("errors.maxSize") } as QueuedFile;
+          }
+          return { id, file } as QueuedFile;
+        });
+        return [...prev, ...toAdd];
       });
-      return [...prev, ...toAdd];
-    });
-  }, []);
+    },
+    [t]
+  );
 
   const handleConvert = useCallback(async () => {
     const updatedQueue = [...queue];
@@ -94,23 +99,23 @@ export default function PngToIcoConverter() {
         const url = URL.createObjectURL(icoBlob);
         updatedQueue[i] = { ...item, resultUrl: url, resultName: fname };
       } catch (err) {
-        updatedQueue[i] = { ...item, error: "Conversion failed" };
+        updatedQueue[i] = { ...item, error: t("errors.conversionFailed") };
       }
     }
     setQueue(updatedQueue);
-  }, [queue]);
+  }, [queue, t]);
 
   const handleConvertFromUrl = useCallback(async () => {
     const url = urlInputRef.current?.value?.trim();
     if (!url) return;
     try {
-      const file = await fetchUrlAsFile(url);
+      const file = await fetchUrlAsFile(url, t);
       addFiles([file]);
       urlInputRef.current!.value = "";
     } catch (e: any) {
-      alert(e?.message || "Failed to fetch URL");
+      alert(e?.message || t("errors.fetchFailed"));
     }
-  }, [addFiles]);
+  }, [addFiles, t]);
 
   const clearQueue = useCallback(() => {
     queue.forEach((item) => {
@@ -124,10 +129,9 @@ export default function PngToIcoConverter() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">PNG to ICO Converter</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-300">
-          A free PNG to ICO converter for desktop icons, app icons, and
-          favicons.
+          {t("description")}
         </p>
       </div>
 
@@ -138,47 +142,41 @@ export default function PngToIcoConverter() {
         maxSizeBytes={MAX_SIZE_BYTES}
         onFilesSelected={addFiles}
       >
-        <div className="text-sm">
-          Drop your .png files here, or click to select them manually!
-        </div>
-        <div className="text-xs text-neutral-500">
-          Up to 20 PNG files, max 5MB each.
-        </div>
+        <div className="text-sm">{t("dropFiles")}</div>
+        <div className="text-xs text-neutral-500">{t("fileLimits")}</div>
       </FileUpload>
 
       <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
         <input
           ref={urlInputRef}
           type="url"
-          placeholder="https://example.com/image.png"
+          placeholder={t("urlPlaceholder")}
           className="flex-1 rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2"
         />
         <button
           onClick={handleConvertFromUrl}
           className="rounded-md border border-neutral-300 dark:border-neutral-700 px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-900"
         >
-          Convert from URL
+          {t("convertFromUrl")}
         </button>
       </div>
 
       <Checkbox
-        label="I agree to display the icon in Recently Converted"
+        label={t("agreeRecent")}
         checked={agreeRecent}
         onChange={setAgreeRecent}
       />
 
       <div className="flex items-center gap-3">
         <Button onClick={handleConvert} disabled={pendingCount === 0}>
-          Convert {pendingCount > 0 ? `(${pendingCount})` : ""}
+          {t("convert")} {pendingCount > 0 ? `(${pendingCount})` : ""}
         </Button>
         {queue.length > 0 && (
           <Button onClick={clearQueue} variant="secondary">
-            Clear All
+            {t("clearAll")}
           </Button>
         )}
-        <span className="text-sm text-neutral-500">
-          Your ICO files will appear here, once you convert them.
-        </span>
+        <span className="text-sm text-neutral-500">{t("filesWillAppear")}</span>
       </div>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -196,7 +194,7 @@ export default function PngToIcoConverter() {
               <div className="flex items-center justify-between gap-2">
                 <img
                   src={q.resultUrl}
-                  alt={q.resultName || "icon"}
+                  alt={q.resultName || t("icon")}
                   className="h-8 w-8"
                 />
                 <a
@@ -204,11 +202,13 @@ export default function PngToIcoConverter() {
                   download={q.resultName || "icon.ico"}
                   className="text-sm underline"
                 >
-                  Download ICO
+                  {t("downloadIco")}
                 </a>
               </div>
             ) : (
-              <div className="text-xs text-neutral-500">Ready to convert</div>
+              <div className="text-xs text-neutral-500">
+                {t("readyToConvert")}
+              </div>
             )}
           </li>
         ))}

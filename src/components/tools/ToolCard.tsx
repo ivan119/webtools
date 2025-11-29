@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export function ToolCard({
   title,
@@ -12,6 +13,7 @@ export function ToolCard({
   desc: string;
   href: string;
 }) {
+  const t = useTranslations();
   return (
     <Link href={href}>
       <motion.div
@@ -22,7 +24,7 @@ export function ToolCard({
         <h3 className="text-xl font-bold text-cyan-300 mb-2">{title}</h3>
         <p className="text-sm text-slate-400 mb-4">{desc}</p>
         <div className="text-purple-400 hover:text-cyan-300 font-semibold">
-          Open Tool →
+          {t("openTool")} →
         </div>
       </motion.div>
     </Link>

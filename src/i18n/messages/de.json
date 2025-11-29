@@ -7,10 +7,17 @@
     "learn": "Mehr erfahren"
   },
   "categories": "Kategorien",
+  "categoryLabels": {
+    "images": "Bilder",
+    "text": "Text",
+    "seo": "SEO",
+    "other": "Andere"
+  },
   "featured": "Highlights",
   "promoted": "Gesponsert",
   "upgrade": "Upgrade auf Pro für Stapel-Tools und höhere Limits",
   "allTools": "Alle Werkzeuge",
+  "openTool": "Werkzeug öffnen",
   "searchPlaceholder": "Werkzeuge suchen",
   "connectWallet": "Wallet verbinden",
   "tools": {
@@ -295,6 +302,260 @@
       "fetchFailed": "URL konnte nicht abgerufen werden",
       "urlMustBeJpeg": "URL muss auf ein JPEG-Bild zeigen",
       "sizeExceeded": "Bild überschreitet das 10MB-Limit",
+      "loadFailed": "Bild konnte nicht geladen werden"
+    }
+  },
+  "webpToPng": {
+    "title": "WebP zu PNG Konverter",
+    "description": "Konvertieren Sie WebP-Bilder schnell in PNG-Format in Ihrem Browser.",
+    "dropFiles": "Legen Sie Ihre .webp-Dateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 20 Dateien, max. 20MB pro Datei.",
+    "urlPlaceholder": "https://example.com/image.webp",
+    "convertFromUrl": "Von URL konvertieren",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre PNG-Dateien erscheinen hier, sobald Sie sie konvertiert haben.",
+    "downloadPng": "PNG herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "onlyWebp": "Nur WebP-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 20MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "fetchFailed": "URL konnte nicht abgerufen werden",
+      "urlMustBeWebp": "URL muss auf ein WebP-Bild zeigen",
+      "sizeExceeded": "Bild überschreitet das 20MB-Limit",
+      "loadFailed": "Bild konnte nicht geladen werden"
+    }
+  },
+  "webpToJpg": {
+    "title": "WebP zu JPG Konverter",
+    "description": "Konvertieren Sie WebP-Bilder mit hoher Qualität zu JPG in Ihrem Browser.",
+    "dropFiles": "Legen Sie Ihre .webp-Dateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 20 Dateien, max. 20MB pro Datei.",
+    "urlPlaceholder": "https://example.com/image.webp",
+    "convertFromUrl": "Von URL konvertieren",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre JPG-Dateien erscheinen hier, sobald Sie sie konvertiert haben.",
+    "downloadJpg": "JPG herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "onlyWebp": "Nur WebP-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 20MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "fetchFailed": "URL konnte nicht abgerufen werden",
+      "urlMustBeWebp": "URL muss auf ein WebP-Bild zeigen",
+      "sizeExceeded": "Bild überschreitet das 20MB-Limit",
+      "loadFailed": "Bild konnte nicht geladen werden"
+    }
+  },
+  "metaTagPreview": {
+    "title": "Meta-Tag-Vorschau",
+    "description": "Vorschau, wie Ihre Seite in Suchergebnissen und sozialen Medien aussehen wird. Generieren und testen Sie Ihre Meta-Tags.",
+    "generateFromUrl": "Von URL generieren (Optional)",
+    "urlPlaceholder": "https://example.com",
+    "generate": "Generieren",
+    "generating": "Wird generiert...",
+    "metaData": "Meta-Daten",
+    "titleLabel": "Titel",
+    "titlePlaceholder": "Ihr Seitentitel",
+    "descriptionLabel": "Beschreibung",
+    "descriptionPlaceholder": "Ihre Seitenbeschreibung",
+    "urlLabel": "URL",
+    "imageUrlLabel": "Bild-URL (Optional)",
+    "imageUrlPlaceholder": "https://example.com/image.jpg",
+    "copyMetaTags": "Meta-Tags kopieren",
+    "preview": "Vorschau",
+    "copySuccess": "Meta-Tags in die Zwischenablage kopiert!",
+    "copyFailed": "Meta-Tags konnten nicht kopiert werden",
+    "platforms": {
+      "google": "Google",
+      "facebook": "Facebook",
+      "twitter": "Twitter"
+    },
+    "previewLabels": {
+      "googleResults": "Google-Suchergebnisse",
+      "facebookPost": "Facebook-Beitrag",
+      "twitterCard": "Twitter-Karte",
+      "defaultTitle": "Ihr Seitentitel",
+      "defaultDescription": "Ihre Seitenbeschreibung wird hier angezeigt..."
+    },
+    "tips": {
+      "title": "Tipps",
+      "tip1": "Titel sollten unter 60 Zeichen bleiben für optimale Anzeige",
+      "tip2": "Beschreibungen sollten 150-160 Zeichen lang sein",
+      "tip3": "Verwenden Sie hochwertige Bilder (1200x630px empfohlen)",
+      "tip4": "Testen Sie Ihre Meta-Tags mit Googles Rich Results Test"
+    },
+    "errors": {
+      "couldNotFetch": "Metadaten für die angegebene URL konnten nicht abgerufen werden",
+      "fetchFailed": "Metadaten konnten nicht abgerufen werden. Bitte versuchen Sie es erneut."
+    }
+  },
+  "imageResizer": {
+    "title": "Bildgrößenänderer",
+    "description": "Ändern Sie die Größe von Bildern für Web, soziale Medien oder jeden Zweck. Seitenverhältnis beibehalten oder exakte Abmessungen festlegen.",
+    "dropFiles": "Legen Sie Ihre Bilddateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 10 Bilder, max. 20MB pro Bild.",
+    "resizeSettings": "Größenänderungseinstellungen",
+    "targetWidth": "Zielbreite (px)",
+    "targetHeight": "Zielhöhe (px)",
+    "resizeMode": "Größenänderungsmodus",
+    "quality": "Qualität",
+    "maintainAspectRatio": "Seitenverhältnis beim Ändern der Abmessungen beibehalten",
+    "resize": "Größe ändern",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre geänderten Bilder erscheinen hier, sobald Sie sie geändert haben.",
+    "original": "Original",
+    "resized": "Geändert",
+    "download": "Herunterladen",
+    "readyToResize": "Bereit zum Größe ändern",
+    "resizeModes": {
+      "maintainAspect": "Seitenverhältnis beibehalten",
+      "exact": "Exakte Abmessungen",
+      "fitToDimensions": "An Abmessungen anpassen"
+    },
+    "errors": {
+      "onlyImages": "Nur Bilddateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 20MB",
+      "loadFailed": "Bild konnte nicht geladen werden",
+      "resizeFailed": "Größenänderung fehlgeschlagen"
+    }
+  },
+  "svgToWebp": {
+    "title": "SVG zu WEBP Konverter",
+    "description": "Konvertieren Sie SVG-Bilder in das effiziente WEBP-Format. Unterstützt Multi-Upload und Qualitätskontrolle.",
+    "dropFiles": "Legen Sie Ihre .svg-Dateien hier ab oder klicken Sie, um sie auszuwählen!",
+    "fileLimits": "Bis zu 20 SVG-Dateien, max. 5MB pro Datei.",
+    "qualityLabel": "WEBP-Qualität",
+    "qualityHint": "Standard ist 80. Höher bedeutet bessere Qualität und größere Dateigröße.",
+    "agreeRecent": "Ich stimme zu, das Bild in Kürzlich Konvertiert anzuzeigen",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre WEBP-Dateien erscheinen hier, sobald sie konvertiert wurden.",
+    "downloadWebp": "WEBP herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "onlySvg": "Nur SVG-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 5MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "loadFailed": "SVG konnte nicht geladen werden"
+    }
+  },
+  "heicToJpg": {
+    "title": "HEIC zu JPG Konverter",
+    "description": "Konvertieren Sie HEIC/HEIF-Fotos zu JPG. Clientseitige Dekodierung wird möglicherweise nicht von Ihrem Browser unterstützt.",
+    "dropFiles": "Legen Sie HEIC/HEIF-Dateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 10 Dateien, max. 30MB pro Datei.",
+    "urlPlaceholder": "https://example.com/photo.heic",
+    "convertFromUrl": "Von URL konvertieren",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "browserSupportNote": "Wenn die Konvertierung fehlschlägt, unterstützt Ihr Browser wahrscheinlich keine HEIC-Dekodierung.",
+    "downloadJpg": "JPG herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "onlyHeic": "Nur HEIC/HEIF-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 30MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "fetchFailed": "URL konnte nicht abgerufen werden",
+      "urlMustBeHeic": "URL muss auf ein HEIC/HEIF-Bild zeigen",
+      "sizeExceeded": "Bild überschreitet das 30MB-Limit",
+      "decodingNotSupported": "HEIC-Dekodierung wird von diesem Browser nicht unterstützt"
+    }
+  },
+  "avifToJpg": {
+    "title": "AVIF zu JPG Konverter",
+    "description": "Konvertieren Sie AVIF-Bilder zu JPG. Einige Browser unterstützen möglicherweise keine AVIF-Dekodierung.",
+    "dropFiles": "Legen Sie Ihre .avif-Dateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 10 Dateien, max. 20MB pro Datei.",
+    "urlPlaceholder": "https://example.com/image.avif",
+    "convertFromUrl": "Von URL konvertieren",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre JPG-Dateien erscheinen hier, sobald Sie sie konvertiert haben.",
+    "downloadJpg": "JPG herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "onlyAvif": "Nur AVIF-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 20MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "conversionFailedWithNote": "Konvertierung fehlgeschlagen (AVIF-Dekodierung wird möglicherweise nicht unterstützt)",
+      "fetchFailed": "URL konnte nicht abgerufen werden",
+      "urlMustBeAvif": "URL muss auf ein AVIF-Bild zeigen",
+      "sizeExceeded": "Bild überschreitet das 20MB-Limit",
+      "loadFailed": "Bild konnte nicht geladen werden (AVIF-Dekodierung nicht unterstützt?)"
+    }
+  },
+  "jpgToAvif": {
+    "title": "JPG zu AVIF Konverter",
+    "description": "Konvertieren Sie JPEG-Bilder in das moderne AVIF-Format. Hinweis: Die AVIF-Kodierungsunterstützung variiert je nach Browser.",
+    "dropFiles": "Legen Sie Ihre .jpg/.jpeg-Dateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 10 JPEG-Dateien, max. 20MB pro Datei.",
+    "urlPlaceholder": "https://example.com/image.jpg",
+    "convertFromUrl": "Von URL konvertieren",
+    "quality": "Qualität",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre AVIF-Dateien erscheinen hier, sobald Sie sie konvertiert haben.",
+    "downloadAvif": "AVIF herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "onlyJpeg": "Nur JPEG-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 20MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "fetchFailed": "URL konnte nicht abgerufen werden",
+      "urlMustBeJpeg": "URL muss auf ein JPEG-Bild zeigen",
+      "sizeExceeded": "Bild überschreitet das 20MB-Limit",
+      "loadFailed": "Bild konnte nicht geladen werden",
+      "encodingNotSupported": "AVIF-Kodierung wird von diesem Browser nicht unterstützt"
+    }
+  },
+  "pngToIco": {
+    "title": "PNG zu ICO Konverter",
+    "description": "Ein kostenloser PNG zu ICO Konverter für Desktop-Icons, App-Icons und Favicons.",
+    "dropFiles": "Legen Sie Ihre .png-Dateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 20 PNG-Dateien, max. 5MB pro Datei.",
+    "urlPlaceholder": "https://example.com/image.png",
+    "convertFromUrl": "Von URL konvertieren",
+    "agreeRecent": "Ich stimme zu, das Icon in Kürzlich Konvertiert anzuzeigen",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre ICO-Dateien erscheinen hier, sobald Sie sie konvertiert haben.",
+    "downloadIco": "ICO herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "icon": "Icon",
+    "errors": {
+      "onlyPng": "Nur PNG-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 5MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "fetchFailed": "URL konnte nicht abgerufen werden",
+      "urlMustBePng": "URL muss auf ein PNG-Bild zeigen",
+      "sizeExceeded": "Bild überschreitet das 5MB-Limit"
+    }
+  },
+  "imageToSvg": {
+    "title": "Bild zu SVG Konverter",
+    "description": "Wickeln Sie jedes Bild in ein pixelperfektes SVG mit eingebettetem Raster ein.",
+    "dropFiles": "Legen Sie Ihre Rasterbilder hier ab oder klicken Sie, um sie auszuwählen.",
+    "fileLimits": "Bis zu 10 Dateien, max. 8MB pro Datei.",
+    "agreeRecent": "Ich stimme zu, das Bild in Kürzlich Konvertiert anzuzeigen",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre SVG-Dateien erscheinen hier, sobald sie konvertiert wurden.",
+    "downloadSvg": "SVG herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "supportedFormats": "Unterstützt: PNG, JPG, WEBP, GIF, BMP",
+      "maxSize": "Maximale Größe beträgt 8MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
       "loadFailed": "Bild konnte nicht geladen werden"
     }
   }

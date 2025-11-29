@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   FileUpload,
   NumberInput,
@@ -28,14 +29,15 @@ const MAX_SIZE_BYTES = 20 * 1024 * 1024; // 20MB
 type ResizeMode = "exact" | "maintain-aspect" | "fit-to-dimensions";
 
 function getImageDimensions(
-  file: File
+  file: File,
+  t: any
 ): Promise<{ width: number; height: number }> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
       resolve({ width: img.width, height: img.height });
     };
-    img.onerror = () => reject(new Error("Failed to load image"));
+    img.onerror = () => reject(new Error(t("errors.loadFailed")));
     img.src = URL.createObjectURL(file);
   });
 }
@@ -45,7 +47,8 @@ function resizeImage(
   targetWidth: number,
   targetHeight: number,
   mode: ResizeMode,
-  quality: number = 0.9
+  quality: number = 0.9,
+  t: any
 ): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const canvas = document.createElement("canvas");
@@ -71,7 +74,7 @@ function resizeImage(
           if (blob) {
             resolve(blob);
           } else {
-            reject(new Error("Failed to resize image"));
+            reject(new Error(t("errors.resizeFailed")));
           }
         },
         file.type,
@@ -79,7 +82,7 @@ function resizeImage(
       );
     };
 
-    img.onerror = () => reject(new Error("Failed to load image"));
+    img.onerror = () => reject(new Error(t("errors.loadFailed")));
     img.src = URL.createObjectURL(file);
   });
 }
@@ -119,6 +122,7 @@ function calculateDimensions(
 }
 
 export default function ImageResizer() {
+  const t = useTranslations("imageResizer");
   const [queue, setQueue] = useState<QueuedFile[]>([]);
   const [targetWidth, setTargetWidth] = useState(800);
   const [targetHeight, setTargetHeight] = useState(600);
@@ -142,11 +146,11 @@ export default function ImageResizer() {
             return {
               id,
               file,
-              error: "Only image files are supported",
+              error: t("errors.onlyImages"),
             } as QueuedFile;
           }
           if (file.size > MAX_SIZE_BYTES) {
-            return { id, file, error: "Max size is 20MB" } as QueuedFile;
+            return { id, file, error: t("errors.maxSize") } as QueuedFile;
           }
           return { id, file } as QueuedFile;
         });
@@ -156,7 +160,7 @@ export default function ImageResizer() {
       // Load image dimensions for new files
       for (const file of arr.slice(0, Math.max(0, MAX_FILES - queue.length))) {
         try {
-          const dimensions = await getImageDimensions(file);
+          const dimensions = await getImageDimensions(file, t);
           setQueue((prev) =>
             prev.map((item) =>
               item.file === file
@@ -172,14 +176,14 @@ export default function ImageResizer() {
           setQueue((prev) =>
             prev.map((item) =>
               item.file === file
-                ? { ...item, error: "Failed to load image" }
+                ? { ...item, error: t("errors.loadFailed") }
                 : item
             )
           );
         }
       }
     },
-    [queue]
+    [queue, t]
   );
 
   const handleResize = useCallback(async () => {
@@ -195,7 +199,8 @@ export default function ImageResizer() {
           targetWidth,
           targetHeight,
           resizeMode,
-          quality
+          quality,
+          t
         );
 
         const dimensions = calculateDimensions(
@@ -221,12 +226,12 @@ export default function ImageResizer() {
           newHeight: dimensions.height,
         };
       } catch (err) {
-        updatedQueue[i] = { ...item, error: "Resize failed" };
+        updatedQueue[i] = { ...item, error: t("errors.resizeFailed") };
       }
     }
 
     setQueue(updatedQueue);
-  }, [queue, targetWidth, targetHeight, resizeMode, quality]);
+  }, [queue, targetWidth, targetHeight, resizeMode, quality, t]);
 
   const clearQueue = useCallback(() => {
     queue.forEach((item) => {
@@ -261,13 +266,18 @@ export default function ImageResizer() {
     }
   };
 
+  const resizeModeOptions = [
+    { value: "maintain-aspect", label: t("resizeModes.maintainAspect") },
+    { value: "exact", label: t("resizeModes.exact") },
+    { value: "fit-to-dimensions", label: t("resizeModes.fitToDimensions") },
+  ];
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">Image Resizer</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-300">
-          Resize images for web, social media, or any purpose. Maintain aspect
-          ratio or set exact dimensions.
+          {t("description")}
         </p>
       </div>
 
@@ -279,21 +289,17 @@ export default function ImageResizer() {
         maxSizeBytes={MAX_SIZE_BYTES}
         onFilesSelected={addFiles}
       >
-        <div className="text-sm">
-          Drop your image files here, or click to select them manually!
-        </div>
-        <div className="text-xs text-neutral-500">
-          Up to 10 images, max 20MB each.
-        </div>
+        <div className="text-sm">{t("dropFiles")}</div>
+        <div className="text-xs text-neutral-500">{t("fileLimits")}</div>
       </FileUpload>
 
       {/* Resize Settings */}
       <div className="space-y-4">
-        <h2 className="text-lg font-semibold">Resize Settings</h2>
+        <h2 className="text-lg font-semibold">{t("resizeSettings")}</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <NumberInput
-            label="Target Width (px)"
+            label={t("targetWidth")}
             value={targetWidth}
             onChange={handleWidthChange}
             min={1}
@@ -301,7 +307,7 @@ export default function ImageResizer() {
           />
 
           <NumberInput
-            label="Target Height (px)"
+            label={t("targetHeight")}
             value={targetHeight}
             onChange={handleHeightChange}
             min={1}
@@ -310,18 +316,14 @@ export default function ImageResizer() {
         </div>
 
         <Select
-          label="Resize Mode"
+          label={t("resizeMode")}
           value={resizeMode}
           onChange={(value) => setResizeMode(value as ResizeMode)}
-          options={[
-            { value: "maintain-aspect", label: "Maintain Aspect Ratio" },
-            { value: "exact", label: "Exact Dimensions" },
-            { value: "fit-to-dimensions", label: "Fit to Dimensions" },
-          ]}
+          options={resizeModeOptions}
         />
 
         <RangeSlider
-          label="Quality"
+          label={t("quality")}
           value={quality}
           onChange={setQuality}
           min={0.1}
@@ -332,7 +334,7 @@ export default function ImageResizer() {
         />
 
         <Checkbox
-          label="Maintain aspect ratio when changing dimensions"
+          label={t("maintainAspectRatio")}
           checked={maintainAspectRatio}
           onChange={setMaintainAspectRatio}
         />
@@ -341,16 +343,14 @@ export default function ImageResizer() {
       {/* Actions */}
       <div className="flex items-center gap-3">
         <Button onClick={handleResize} disabled={pendingCount === 0}>
-          Resize {pendingCount > 0 ? `(${pendingCount})` : ""}
+          {t("resize")} {pendingCount > 0 ? `(${pendingCount})` : ""}
         </Button>
         {queue.length > 0 && (
           <Button onClick={clearQueue} variant="secondary">
-            Clear All
+            {t("clearAll")}
           </Button>
         )}
-        <span className="text-sm text-neutral-500">
-          Your resized images will appear here, once you resize them.
-        </span>
+        <span className="text-sm text-neutral-500">{t("filesWillAppear")}</span>
       </div>
 
       {/* Results */}
@@ -367,7 +367,7 @@ export default function ImageResizer() {
 
               {q.originalWidth && q.originalHeight && (
                 <div className="text-xs text-neutral-500">
-                  Original: {q.originalWidth} × {q.originalHeight}px
+                  {t("original")}: {q.originalWidth} × {q.originalHeight}px
                 </div>
               )}
 
@@ -376,12 +376,12 @@ export default function ImageResizer() {
               ) : q.resultUrl ? (
                 <div className="space-y-2">
                   <div className="text-xs text-neutral-500">
-                    Resized: {q.newWidth} × {q.newHeight}px
+                    {t("resized")}: {q.newWidth} × {q.newHeight}px
                   </div>
-                  <div className="flex items中心 justify-between gap-2">
+                  <div className="flex items-center justify-between gap-2">
                     <img
                       src={q.resultUrl}
-                      alt={q.resultName || "resized"}
+                      alt={q.resultName || t("resized")}
                       className="h-8 w-8 object-cover rounded"
                     />
                     <a
@@ -389,12 +389,14 @@ export default function ImageResizer() {
                       download={q.resultName || "resized.jpg"}
                       className="text-sm underline"
                     >
-                      Download
+                      {t("download")}
                     </a>
                   </div>
                 </div>
               ) : (
-                <div className="text-xs text-neutral-500">Ready to resize</div>
+                <div className="text-xs text-neutral-500">
+                  {t("readyToResize")}
+                </div>
               )}
             </li>
           ))}

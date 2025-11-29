@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FileUpload, Button, RangeSlider, Checkbox } from "../../shared";
 
 type QueuedFile = {
@@ -108,7 +109,11 @@ function blobToDataURL(blob: Blob): Promise<string> {
   });
 }
 
-async function convertSvgToWebp(file: File, quality: number): Promise<Blob> {
+async function convertSvgToWebp(
+  file: File,
+  quality: number,
+  t: any
+): Promise<Blob> {
   let text = await file.text();
   if (!/xmlns=\"http:\/\/www\.w3\.org\/2000\/svg\"/.test(text)) {
     text = text.replace(
@@ -140,9 +145,9 @@ async function convertSvgToWebp(file: File, quality: number): Promise<Blob> {
               );
               const blobFromDataUrl = dataUrlToBlob(dataUrl);
               if (blobFromDataUrl) resolve(blobFromDataUrl);
-              else reject(new Error("Failed to convert to WEBP"));
+              else reject(new Error(t("errors.conversionFailed")));
             } catch {
-              reject(new Error("Failed to convert to WEBP"));
+              reject(new Error(t("errors.conversionFailed")));
             }
           }
         };
@@ -152,11 +157,11 @@ async function convertSvgToWebp(file: File, quality: number): Promise<Blob> {
           done(null);
         }
       } catch {
-        reject(new Error("Conversion failed"));
+        reject(new Error(t("errors.conversionFailed")));
       }
     };
     img.onerror = () => {
-      reject(new Error("Failed to load SVG"));
+      reject(new Error(t("errors.loadFailed")));
     };
     const encoded = encodeURIComponent(text)
       .replace(/%20/g, " ")
@@ -168,6 +173,7 @@ async function convertSvgToWebp(file: File, quality: number): Promise<Blob> {
 }
 
 export default function SvgToWebpConverter() {
+  const t = useTranslations("svgToWebp");
   const [queue, setQueue] = useState<QueuedFile[]>([]);
   const [quality, setQuality] = useState<number>(80);
   const [agreeRecent, setAgreeRecent] = useState<boolean>(false);
@@ -178,30 +184,33 @@ export default function SvgToWebpConverter() {
     [queue]
   );
 
-  const addFiles = useCallback((files: FileList | File[]) => {
-    const arr = Array.from(files);
-    setQueue((prev) => {
-      const remainingSlots = Math.max(0, MAX_FILES - prev.length);
-      const toAdd = arr.slice(0, remainingSlots).map((file, idx) => {
-        const id = `${Date.now()}-${idx}-${file.name}`;
-        const isSvgType = file.type.includes("image/svg");
-        const isSvgName = /\.svg$/i.test(file.name);
-        if (!isSvgType && !isSvgName) {
-          return {
-            id,
-            file,
-            error: "Only SVG files are supported",
-          } as QueuedFile;
-        }
-        if (file.size > MAX_SIZE_BYTES) {
-          return { id, file, error: "Max size is 5MB" } as QueuedFile;
-        }
-        return { id, file } as QueuedFile;
+  const addFiles = useCallback(
+    (files: FileList | File[]) => {
+      const arr = Array.from(files);
+      setQueue((prev) => {
+        const remainingSlots = Math.max(0, MAX_FILES - prev.length);
+        const toAdd = arr.slice(0, remainingSlots).map((file, idx) => {
+          const id = `${Date.now()}-${idx}-${file.name}`;
+          const isSvgType = file.type.includes("image/svg");
+          const isSvgName = /\.svg$/i.test(file.name);
+          if (!isSvgType && !isSvgName) {
+            return {
+              id,
+              file,
+              error: t("errors.onlySvg"),
+            } as QueuedFile;
+          }
+          if (file.size > MAX_SIZE_BYTES) {
+            return { id, file, error: t("errors.maxSize") } as QueuedFile;
+          }
+          return { id, file } as QueuedFile;
+        });
+        return [...prev, ...toAdd];
       });
-      return [...prev, ...toAdd];
-    });
-    inputKeyRef.current++;
-  }, []);
+      inputKeyRef.current++;
+    },
+    [t]
+  );
 
   const handleConvert = useCallback(async () => {
     const updatedQueue = [...queue];
@@ -209,16 +218,16 @@ export default function SvgToWebpConverter() {
       const item = updatedQueue[i];
       if (item.error || item.resultUrl) continue;
       try {
-        const webpBlob = await convertSvgToWebp(item.file, quality / 100);
+        const webpBlob = await convertSvgToWebp(item.file, quality / 100, t);
         const fname = item.file.name.replace(/\.svg$/i, ".webp");
         const url = URL.createObjectURL(webpBlob);
         updatedQueue[i] = { ...item, resultUrl: url, resultName: fname };
       } catch (err) {
-        updatedQueue[i] = { ...item, error: "Conversion failed" };
+        updatedQueue[i] = { ...item, error: t("errors.conversionFailed") };
       }
     }
     setQueue(updatedQueue);
-  }, [queue, quality]);
+  }, [queue, quality, t]);
 
   const clearQueue = useCallback(() => {
     queue.forEach((item) => {
@@ -230,10 +239,9 @@ export default function SvgToWebpConverter() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">SVG to WEBP Converter</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-300">
-          Convert SVG images to efficient WEBP format. Supports multi-upload and
-          quality control.
+          {t("description")}
         </p>
       </div>
 
@@ -245,17 +253,13 @@ export default function SvgToWebpConverter() {
         onFilesSelected={addFiles}
         className=""
       >
-        <div className="text-sm">
-          Drop your .svg files here, or click to select them!
-        </div>
-        <div className="text-xs text-neutral-500">
-          Up to 20 SVG files, max 5MB each.
-        </div>
+        <div className="text-sm">{t("dropFiles")}</div>
+        <div className="text-xs text-neutral-500">{t("fileLimits")}</div>
       </FileUpload>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <RangeSlider
-          label="WEBP quality"
+          label={t("qualityLabel")}
           value={quality}
           onChange={setQuality}
           min={1}
@@ -265,29 +269,27 @@ export default function SvgToWebpConverter() {
         />
         <div className="flex items-end">
           <span className="text-sm text-neutral-600 dark:text-neutral-400">
-            Default is 80. Higher means better quality and larger file size.
+            {t("qualityHint")}
           </span>
         </div>
       </div>
 
       <Checkbox
-        label="I agree to display the image in Recently Converted"
+        label={t("agreeRecent")}
         checked={agreeRecent}
         onChange={setAgreeRecent}
       />
 
       <div className="flex items-center gap-3">
         <Button onClick={handleConvert} disabled={pendingCount === 0}>
-          Convert {pendingCount > 0 ? `(${pendingCount})` : ""}
+          {t("convert")} {pendingCount > 0 ? `(${pendingCount})` : ""}
         </Button>
         {queue.length > 0 && (
           <Button onClick={clearQueue} variant="secondary">
-            Clear All
+            {t("clearAll")}
           </Button>
         )}
-        <span className="text-sm text-neutral-500">
-          Your WEBP files will appear here once converted.
-        </span>
+        <span className="text-sm text-neutral-500">{t("filesWillAppear")}</span>
       </div>
 
       {queue.length > 0 && (
@@ -309,7 +311,7 @@ export default function SvgToWebpConverter() {
                 <div className="flex items-center justify-between gap-2">
                   <img
                     src={q.resultUrl}
-                    alt={q.resultName || "converted"}
+                    alt={q.resultName || t("converted")}
                     className="h-8 w-8 object-cover rounded"
                   />
                   <a
@@ -317,11 +319,13 @@ export default function SvgToWebpConverter() {
                     download={q.resultName || "converted.webp"}
                     className="text-sm underline"
                   >
-                    Download WEBP
+                    {t("downloadWebp")}
                   </a>
                 </div>
               ) : (
-                <div className="text-xs text-neutral-500">Ready to convert</div>
+                <div className="text-xs text-neutral-500">
+                  {t("readyToConvert")}
+                </div>
               )}
             </li>
           ))}

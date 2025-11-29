@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { ToolItem } from "../../data/tools";
 import { ToolGrid } from "./ToolGrid";
 
@@ -12,6 +13,23 @@ type Props = {
 const CATEGORY_ORDER = ["images", "text", "seo", "other"] as const;
 
 export function ToolsTabs({ items, initialCategory }: Props) {
+  const t = useTranslations();
+
+  const getCategoryLabel = (cat: string): string => {
+    switch (cat) {
+      case "images":
+        return t("categoryLabels.images");
+      case "text":
+        return t("categoryLabels.text");
+      case "seo":
+        return t("categoryLabels.seo");
+      case "other":
+        return t("categoryLabels.other");
+      default:
+        return cat;
+    }
+  };
+
   const groups = useMemo(() => {
     const g = items.reduce<Record<string, ToolItem[]>>((acc, tl) => {
       (acc[tl.category] ||= []).push(tl);
@@ -122,7 +140,7 @@ export function ToolsTabs({ items, initialCategory }: Props) {
                 <span className="align-[-2px]">
                   {ICONS[cat] || ICONS.other}
                 </span>
-                <span>{cat}</span>
+                <span>{getCategoryLabel(cat)}</span>
                 <span
                   className={`ml-1 inline-flex items-center justify-center rounded-full px-1.5 text-[10px] ${
                     isActive
