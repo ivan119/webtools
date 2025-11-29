@@ -247,5 +247,55 @@
       "sizeExceeded": "L'immagine supera il limite di 20MB",
       "loadFailed": "Impossibile caricare l'immagine"
     }
+  },
+  "imageCompressor": {
+    "title": "Compressore Immagini",
+    "description": "Riduci la dimensione del file immagine con qualità e formato regolabili.",
+    "dropFiles": "Trascina i file immagine qui o fai clic per selezionarli manualmente!",
+    "fileLimits": "Fino a 20 immagini, massimo 25MB ciascuna.",
+    "quality": "Qualità",
+    "targetFormat": "Formato Obiettivo",
+    "compress": "Comprimi",
+    "clearAll": "Cancella Tutto",
+    "filesWillAppear": "Le tue immagini compresse appariranno qui.",
+    "download": "Scarica",
+    "readyToCompress": "Pronto per comprimere",
+    "compressed": "compressa",
+    "formats": {
+      "auto": "Auto (mantieni formato)",
+      "jpeg": "JPEG",
+      "webp": "WebP",
+      "png": "PNG"
+    },
+    "errors": {
+      "onlyImages": "Sono supportati solo file immagine",
+      "maxSize": "La dimensione massima è 25MB",
+      "compressionFailed": "Compressione fallita",
+      "loadFailed": "Impossibile caricare l'immagine"
+    }
+  },
+  "jpegToPng": {
+    "title": "Convertitore JPEG in PNG",
+    "description": "Converti immagini JPEG in formato PNG con qualità senza perdita. Perfetto per preservare la qualità dell'immagine.",
+    "dropFiles": "Trascina i tuoi file .jpg/.jpeg qui o fai clic per selezionarli manualmente!",
+    "fileLimits": "Fino a 20 file JPEG, massimo 10MB ciascuno.",
+    "urlPlaceholder": "https://example.com/image.jpg",
+    "convertFromUrl": "Converti da URL",
+    "agreeRecent": "Accetto di visualizzare l'immagine in Convertiti di Recente",
+    "convert": "Converti",
+    "clearAll": "Cancella Tutto",
+    "filesWillAppear": "I tuoi file PNG appariranno qui una volta convertiti.",
+    "downloadPng": "Scarica PNG",
+    "readyToConvert": "Pronto per convertire",
+    "converted": "convertito",
+    "errors": {
+      "onlyJpeg": "Sono supportati solo file JPEG",
+      "maxSize": "La dimensione massima è 10MB",
+      "conversionFailed": "Conversione fallita",
+      "fetchFailed": "Impossibile recuperare l'URL",
+      "urlMustBeJpeg": "L'URL deve puntare a un'immagine JPEG",
+      "sizeExceeded": "L'immagine supera il limite di 10MB",
+      "loadFailed": "Impossibile caricare l'immagine"
+    }
   }
 }

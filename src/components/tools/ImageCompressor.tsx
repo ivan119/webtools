@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FileUpload, RangeSlider, Select, Button } from "../shared";
 
 type QueuedFile = {
@@ -18,11 +19,11 @@ type TargetFormat = "auto" | "image/jpeg" | "image/webp" | "image/png";
 const MAX_FILES = 20;
 const MAX_SIZE_BYTES = 25 * 1024 * 1024; // 25MB
 
-function readAsImage(file: File): Promise<HTMLImageElement> {
+function readAsImage(file: File, t: any): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error("Failed to load image"));
+    img.onerror = () => reject(new Error(t("errors.loadFailed")));
     img.src = URL.createObjectURL(file);
   });
 }
@@ -30,9 +31,10 @@ function readAsImage(file: File): Promise<HTMLImageElement> {
 async function compressImage(
   file: File,
   quality: number,
-  target: TargetFormat
+  target: TargetFormat,
+  t: any
 ): Promise<Blob> {
-  const img = await readAsImage(file);
+  const img = await readAsImage(file, t);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
   canvas.width = img.width;
@@ -40,7 +42,7 @@ async function compressImage(
   ctx?.drawImage(img, 0, 0);
 
   const mimeType: string =
-    target === "auto" ? (file.type || "image/jpeg") : target;
+    target === "auto" ? file.type || "image/jpeg" : target;
 
   return new Promise((resolve, reject) => {
     // PNG ignores quality per spec; others use quality
@@ -48,7 +50,7 @@ async function compressImage(
     canvas.toBlob(
       (blob) => {
         if (blob) resolve(blob);
-        else reject(new Error("Compression failed"));
+        else reject(new Error(t("errors.compressionFailed")));
       },
       mimeType,
       q as any
@@ -57,6 +59,7 @@ async function compressImage(
 }
 
 export default function ImageCompressor() {
+  const t = useTranslations("imageCompressor");
   const [queue, setQueue] = useState<QueuedFile[]>([]);
   const [quality, setQuality] = useState(0.8);
   const [targetFormat, setTargetFormat] = useState<TargetFormat>("auto");
@@ -66,23 +69,26 @@ export default function ImageCompressor() {
     [queue]
   );
 
-  const addFiles = useCallback((files: FileList | File[]) => {
-    const arr = Array.from(files);
-    setQueue((prev) => {
-      const remainingSlots = Math.max(0, MAX_FILES - prev.length);
-      const toAdd = arr.slice(0, remainingSlots).map((file, idx) => {
-        const id = `${Date.now()}-${idx}-${file.name}`;
-        if (!file.type.startsWith("image/")) {
-          return { id, file, error: "Only image files are supported" } as QueuedFile;
-        }
-        if (file.size > MAX_SIZE_BYTES) {
-          return { id, file, error: "Max size is 25MB" } as QueuedFile;
-        }
-        return { id, file, originalSize: file.size } as QueuedFile;
+  const addFiles = useCallback(
+    (files: FileList | File[]) => {
+      const arr = Array.from(files);
+      setQueue((prev) => {
+        const remainingSlots = Math.max(0, MAX_FILES - prev.length);
+        const toAdd = arr.slice(0, remainingSlots).map((file, idx) => {
+          const id = `${Date.now()}-${idx}-${file.name}`;
+          if (!file.type.startsWith("image/")) {
+            return { id, file, error: t("errors.onlyImages") } as QueuedFile;
+          }
+          if (file.size > MAX_SIZE_BYTES) {
+            return { id, file, error: t("errors.maxSize") } as QueuedFile;
+          }
+          return { id, file, originalSize: file.size } as QueuedFile;
+        });
+        return [...prev, ...toAdd];
       });
-      return [...prev, ...toAdd];
-    });
-  }, []);
+    },
+    [t]
+  );
 
   const handleCompress = useCallback(async () => {
     const updatedQueue = [...queue];
@@ -90,7 +96,7 @@ export default function ImageCompressor() {
       const item = updatedQueue[i];
       if (item.error || item.resultUrl) continue;
       try {
-        const blob = await compressImage(item.file, quality, targetFormat);
+        const blob = await compressImage(item.file, quality, targetFormat, t);
         const ext =
           targetFormat === "auto"
             ? item.file.type.includes("png")
@@ -108,11 +114,11 @@ export default function ImageCompressor() {
           compressedSize: blob.size,
         };
       } catch (err) {
-        updatedQueue[i] = { ...item, error: "Compression failed" };
+        updatedQueue[i] = { ...item, error: t("errors.compressionFailed") };
       }
     }
     setQueue(updatedQueue);
-  }, [queue, quality, targetFormat]);
+  }, [queue, quality, targetFormat, t]);
 
   const clearQueue = useCallback(() => {
     queue.forEach((item) => {
@@ -121,62 +127,103 @@ export default function ImageCompressor() {
     setQueue([]);
   }, [queue]);
 
+  const formatOptions = [
+    { value: "auto", label: t("formats.auto") },
+    { value: "image/jpeg", label: t("formats.jpeg") },
+    { value: "image/webp", label: t("formats.webp") },
+    { value: "image/png", label: t("formats.png") },
+  ];
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">Image Compressor</h1>
+        <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-300">
-          Reduce image file size with adjustable quality and format.
+          {t("description")}
         </p>
       </div>
 
-      <FileUpload accept="image/*" multiple maxFiles={MAX_FILES} maxSizeBytes={MAX_SIZE_BYTES} onFilesSelected={addFiles}>
-        <div className="text-sm">Drop image files here, or click to select them manually!</div>
-        <div className="text-xs text-neutral-500">Up to 20 images, max 25MB each.</div>
+      <FileUpload
+        accept="image/*"
+        multiple
+        maxFiles={MAX_FILES}
+        maxSizeBytes={MAX_SIZE_BYTES}
+        onFilesSelected={addFiles}
+      >
+        <div className="text-sm">{t("dropFiles")}</div>
+        <div className="text-xs text-neutral-500">{t("fileLimits")}</div>
       </FileUpload>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <RangeSlider label="Quality" value={quality} onChange={setQuality} min={0.1} max={1} step={0.05} showValue unit="%" />
+        <RangeSlider
+          label={t("quality")}
+          value={quality}
+          onChange={setQuality}
+          min={0.1}
+          max={1}
+          step={0.05}
+          showValue
+          unit="%"
+        />
         <Select
-          label="Target Format"
+          label={t("targetFormat")}
           value={targetFormat}
           onChange={(v) => setTargetFormat(v as TargetFormat)}
-          options={[
-            { value: "auto", label: "Auto (keep format)" },
-            { value: "image/jpeg", label: "JPEG" },
-            { value: "image/webp", label: "WebP" },
-            { value: "image/png", label: "PNG" },
-          ]}
+          options={formatOptions}
         />
       </div>
 
       <div className="flex items-center gap-3">
-        <Button onClick={handleCompress} disabled={pendingCount === 0}>Compress {pendingCount > 0 ? `(${pendingCount})` : ""}</Button>
+        <Button onClick={handleCompress} disabled={pendingCount === 0}>
+          {t("compress")} {pendingCount > 0 ? `(${pendingCount})` : ""}
+        </Button>
         {queue.length > 0 && (
-          <Button onClick={clearQueue} variant="secondary">Clear All</Button>
+          <Button onClick={clearQueue} variant="secondary">
+            {t("clearAll")}
+          </Button>
         )}
-        <span className="text-sm text-neutral-500">Your compressed images will appear here.</span>
+        <span className="text-sm text-neutral-500">{t("filesWillAppear")}</span>
       </div>
 
       {queue.length > 0 && (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {queue.map((q) => (
-            <li key={q.id} className="rounded-md border border-neutral-200 dark:border-neutral-800 p-3 space-y-2">
-              <div className="text-sm font-medium truncate" title={q.file.name}>{q.file.name}</div>
+            <li
+              key={q.id}
+              className="rounded-md border border-neutral-200 dark:border-neutral-800 p-3 space-y-2"
+            >
+              <div className="text-sm font-medium truncate" title={q.file.name}>
+                {q.file.name}
+              </div>
               <div className="text-xs text-neutral-500">
-                {typeof q.originalSize === "number" && typeof q.compressedSize === "number"
-                  ? `${(q.originalSize / 1024).toFixed(0)} KB → ${(q.compressedSize / 1024).toFixed(0)} KB`
+                {typeof q.originalSize === "number" &&
+                typeof q.compressedSize === "number"
+                  ? `${(q.originalSize / 1024).toFixed(0)} KB → ${(
+                      q.compressedSize / 1024
+                    ).toFixed(0)} KB`
                   : `${(q.file.size / 1024).toFixed(0)} KB`}
               </div>
               {q.error ? (
                 <div className="text-xs text-red-600">{q.error}</div>
               ) : q.resultUrl ? (
                 <div className="flex items-center justify-between gap-2">
-                  <img src={q.resultUrl} alt={q.resultName || "compressed"} className="h-8 w-8 object-cover rounded" />
-                  <a href={q.resultUrl} download={q.resultName || "compressed"} className="text-sm underline">Download</a>
+                  <img
+                    src={q.resultUrl}
+                    alt={q.resultName || t("compressed")}
+                    className="h-8 w-8 object-cover rounded"
+                  />
+                  <a
+                    href={q.resultUrl}
+                    download={q.resultName || "compressed"}
+                    className="text-sm underline"
+                  >
+                    {t("download")}
+                  </a>
                 </div>
               ) : (
-                <div className="text-xs text-neutral-500">Ready to compress</div>
+                <div className="text-xs text-neutral-500">
+                  {t("readyToCompress")}
+                </div>
               )}
             </li>
           ))}
@@ -185,5 +232,3 @@ export default function ImageCompressor() {
     </div>
   );
 }
-
-

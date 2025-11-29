@@ -247,6 +247,56 @@
       "sizeExceeded": "Bild überschreitet das 20MB-Limit",
       "loadFailed": "Bild konnte nicht geladen werden"
     }
+  },
+  "imageCompressor": {
+    "title": "Bildkomprimierer",
+    "description": "Reduzieren Sie die Bilddateigröße mit einstellbarer Qualität und Format.",
+    "dropFiles": "Legen Sie Bilddateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 20 Bilder, max. 25MB pro Bild.",
+    "quality": "Qualität",
+    "targetFormat": "Zielformat",
+    "compress": "Komprimieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre komprimierten Bilder erscheinen hier.",
+    "download": "Herunterladen",
+    "readyToCompress": "Bereit zum Komprimieren",
+    "compressed": "komprimiert",
+    "formats": {
+      "auto": "Auto (Format beibehalten)",
+      "jpeg": "JPEG",
+      "webp": "WebP",
+      "png": "PNG"
+    },
+    "errors": {
+      "onlyImages": "Nur Bilddateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 25MB",
+      "compressionFailed": "Komprimierung fehlgeschlagen",
+      "loadFailed": "Bild konnte nicht geladen werden"
+    }
+  },
+  "jpegToPng": {
+    "title": "JPEG zu PNG Konverter",
+    "description": "Konvertieren Sie JPEG-Bilder in PNG-Format mit verlustfreier Qualität. Perfekt zum Erhalten der Bildqualität.",
+    "dropFiles": "Legen Sie Ihre .jpg/.jpeg-Dateien hier ab oder klicken Sie, um sie manuell auszuwählen!",
+    "fileLimits": "Bis zu 20 JPEG-Dateien, max. 10MB pro Datei.",
+    "urlPlaceholder": "https://example.com/image.jpg",
+    "convertFromUrl": "Von URL konvertieren",
+    "agreeRecent": "Ich stimme zu, das Bild in Kürzlich Konvertiert anzuzeigen",
+    "convert": "Konvertieren",
+    "clearAll": "Alles löschen",
+    "filesWillAppear": "Ihre PNG-Dateien erscheinen hier, sobald Sie sie konvertiert haben.",
+    "downloadPng": "PNG herunterladen",
+    "readyToConvert": "Bereit zum Konvertieren",
+    "converted": "konvertiert",
+    "errors": {
+      "onlyJpeg": "Nur JPEG-Dateien werden unterstützt",
+      "maxSize": "Maximale Größe beträgt 10MB",
+      "conversionFailed": "Konvertierung fehlgeschlagen",
+      "fetchFailed": "URL konnte nicht abgerufen werden",
+      "urlMustBeJpeg": "URL muss auf ein JPEG-Bild zeigen",
+      "sizeExceeded": "Bild überschreitet das 10MB-Limit",
+      "loadFailed": "Bild konnte nicht geladen werden"
+    }
   }
 }
 

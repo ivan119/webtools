@@ -247,5 +247,55 @@
       "sizeExceeded": "La imagen excede el límite de 20MB",
       "loadFailed": "Error al cargar la imagen"
     }
+  },
+  "imageCompressor": {
+    "title": "Compresor de Imágenes",
+    "description": "Reduce el tamaño de archivo de imágenes con calidad y formato ajustables.",
+    "dropFiles": "¡Arrastra archivos de imagen aquí o haz clic para seleccionarlos manualmente!",
+    "fileLimits": "Hasta 20 imágenes, máximo 25MB cada una.",
+    "quality": "Calidad",
+    "targetFormat": "Formato Objetivo",
+    "compress": "Comprimir",
+    "clearAll": "Limpiar Todo",
+    "filesWillAppear": "Tus imágenes comprimidas aparecerán aquí.",
+    "download": "Descargar",
+    "readyToCompress": "Listo para comprimir",
+    "compressed": "comprimido",
+    "formats": {
+      "auto": "Auto (mantener formato)",
+      "jpeg": "JPEG",
+      "webp": "WebP",
+      "png": "PNG"
+    },
+    "errors": {
+      "onlyImages": "Solo se admiten archivos de imagen",
+      "maxSize": "El tamaño máximo es 25MB",
+      "compressionFailed": "La compresión falló",
+      "loadFailed": "Error al cargar la imagen"
+    }
+  },
+  "jpegToPng": {
+    "title": "Convertidor JPEG a PNG",
+    "description": "Convierte imágenes JPEG a formato PNG con calidad sin pérdidas. Perfecto para preservar la calidad de la imagen.",
+    "dropFiles": "¡Arrastra tus archivos .jpg/.jpeg aquí o haz clic para seleccionarlos manualmente!",
+    "fileLimits": "Hasta 20 archivos JPEG, máximo 10MB cada uno.",
+    "urlPlaceholder": "https://example.com/image.jpg",
+    "convertFromUrl": "Convertir desde URL",
+    "agreeRecent": "Acepto mostrar la imagen en Recientemente Convertido",
+    "convert": "Convertir",
+    "clearAll": "Limpiar Todo",
+    "filesWillAppear": "Tus archivos PNG aparecerán aquí una vez que los conviertas.",
+    "downloadPng": "Descargar PNG",
+    "readyToConvert": "Listo para convertir",
+    "converted": "convertido",
+    "errors": {
+      "onlyJpeg": "Solo se admiten archivos JPEG",
+      "maxSize": "El tamaño máximo es 10MB",
+      "conversionFailed": "La conversión falló",
+      "fetchFailed": "Error al obtener la URL",
+      "urlMustBeJpeg": "La URL debe apuntar a una imagen JPEG",
+      "sizeExceeded": "La imagen excede el límite de 10MB",
+      "loadFailed": "Error al cargar la imagen"
+    }
   }
 }

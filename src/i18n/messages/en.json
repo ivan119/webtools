@@ -245,6 +245,56 @@
       "sizeExceeded": "Image exceeds 20MB limit",
       "loadFailed": "Failed to load image"
     }
+  },
+  "imageCompressor": {
+    "title": "Image Compressor",
+    "description": "Reduce image file size with adjustable quality and format.",
+    "dropFiles": "Drop image files here, or click to select them manually!",
+    "fileLimits": "Up to 20 images, max 25MB each.",
+    "quality": "Quality",
+    "targetFormat": "Target Format",
+    "compress": "Compress",
+    "clearAll": "Clear All",
+    "filesWillAppear": "Your compressed images will appear here.",
+    "download": "Download",
+    "readyToCompress": "Ready to compress",
+    "compressed": "compressed",
+    "formats": {
+      "auto": "Auto (keep format)",
+      "jpeg": "JPEG",
+      "webp": "WebP",
+      "png": "PNG"
+    },
+    "errors": {
+      "onlyImages": "Only image files are supported",
+      "maxSize": "Max size is 25MB",
+      "compressionFailed": "Compression failed",
+      "loadFailed": "Failed to load image"
+    }
+  },
+  "jpegToPng": {
+    "title": "JPEG to PNG Converter",
+    "description": "Convert JPEG images to PNG format with lossless quality. Perfect for preserving image quality.",
+    "dropFiles": "Drop your .jpg/.jpeg files here, or click to select them manually!",
+    "fileLimits": "Up to 20 JPEG files, max 10MB each.",
+    "urlPlaceholder": "https://example.com/image.jpg",
+    "convertFromUrl": "Convert from URL",
+    "agreeRecent": "I agree to display the image in Recently Converted",
+    "convert": "Convert",
+    "clearAll": "Clear All",
+    "filesWillAppear": "Your PNG files will appear here, once you convert them.",
+    "downloadPng": "Download PNG",
+    "readyToConvert": "Ready to convert",
+    "converted": "converted",
+    "errors": {
+      "onlyJpeg": "Only JPEG files are supported",
+      "maxSize": "Max size is 10MB",
+      "conversionFailed": "Conversion failed",
+      "fetchFailed": "Failed to fetch URL",
+      "urlMustBeJpeg": "URL must point to a JPEG image",
+      "sizeExceeded": "Image exceeds 10MB limit",
+      "loadFailed": "Failed to load image"
+    }
   }
 }
 
