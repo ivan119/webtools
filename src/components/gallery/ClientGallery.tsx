@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import { useQueryState, parseAsString } from "nuqs";
 import type { ImageItem } from "../../domain/image";
-import { useUiStore } from "../../stores/ui";
 import { GalleryGrid } from "./GalleryGrid";
 import { Lightbox } from "../lightbox/Lightbox";
 import { FilterBar } from "./FilterBar";
@@ -13,19 +12,18 @@ type Props = {
 };
 
 export function ClientGallery({ images }: Props) {
-  const { isLightboxOpen, activeId, openLightbox, closeLightbox } =
-    useUiStore();
-
   const [tagRaw, setTagRaw] = useQueryState(
     "tag",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [photoRaw, setPhotoRaw] = useQueryState(
     "photo",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
+
   const tag = tagRaw || undefined;
-  const photo = photoRaw || undefined;
+  const activeId = photoRaw || null;
+  const isLightboxOpen = !!activeId;
 
   const tags = useMemo(() => {
     const set = new Set<string>();
@@ -40,21 +38,14 @@ export function ClientGallery({ images }: Props) {
 
   const handleOpen = useCallback(
     (id: string) => {
-      openLightbox(id);
       setPhotoRaw(id);
     },
-    [openLightbox, setPhotoRaw]
+    [setPhotoRaw],
   );
 
   const handleClose = useCallback(() => {
-    closeLightbox();
     setPhotoRaw("");
-  }, [closeLightbox, setPhotoRaw]);
-
-  useEffect(() => {
-    if (photo && photo !== activeId) openLightbox(photo);
-    if (!photo && isLightboxOpen) closeLightbox();
-  }, [photo, activeId, isLightboxOpen, openLightbox, closeLightbox]);
+  }, [setPhotoRaw]);
 
   return (
     <div className="space-y-6">

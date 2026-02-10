@@ -21,6 +21,7 @@ import MetaTagPreview from "./seo/MetaTagPreview";
 import HashGenerator from "./other/HashGenerator";
 import QRCodeGenerator from "./QRCodeGenerator";
 import ImageMetadataViewer from "./ImageMetadataViewer";
+import GlassmorphismGenerator from "./GlassmorphismGenerator";
 
 type ToolId =
   | "jpeg-to-png"
@@ -40,7 +41,8 @@ type ToolId =
   | "png-to-ico"
   | "json-formatter"
   | "qr-code-generator"
-  | "image-metadata-viewer";
+  | "image-metadata-viewer"
+  | "glassmorphism-generator";
 
 interface ToolRouterProps {
   toolId: ToolId | null;
@@ -65,11 +67,12 @@ const toolComponents: Record<ToolId, React.ComponentType> = {
   "json-formatter": JsonFormatter,
   "qr-code-generator": QRCodeGenerator,
   "image-metadata-viewer": ImageMetadataViewer,
+  "glassmorphism-generator": GlassmorphismGenerator,
 };
 
 export default function ToolRouter({ toolId }: ToolRouterProps) {
   const t = useTranslations();
-  
+
   if (!toolId || !toolComponents[toolId]) {
     return (
       <div className="text-center py-12">
